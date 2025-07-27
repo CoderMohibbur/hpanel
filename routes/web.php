@@ -25,6 +25,13 @@ Route::middleware('auth')->group(function () {
         Route::get('/create', [HostingController::class, 'create'])->name('create');
         Route::post('/', [HostingController::class, 'store'])->name('store');
     });
+
+        // 🧩 Hosting Tools (not part of CRUD)
+    // Route::get('/hosting/{hosting}/dns', [DnsController::class, 'manage'])->name('dns.manage');
+    // Route::get('/hosting/{hosting}/ssl', [SslController::class, 'renew'])->name('ssl.renew');
+
+    // // 🧠 AI Tools (optional future)
+    // Route::get('/tools/ai/{hosting}', [AiToolController::class, 'index'])->name('tools.ai');
 });
 
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {

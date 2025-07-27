@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Hosting;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class AdminController extends Controller
 {
@@ -31,13 +32,16 @@ class AdminController extends Controller
         $activeUsers    = $users->where('is_active', true)->count();
         $suspendedUsers = $users->where('is_active', false)->count();
         $adminUsers     = $users->where('is_admin', true)->count();
+        $hostings = Hosting::latest()->take(5)->get(); // Optional: limit to 5 recent hostings
+
 
         return view('admin.dashboard', compact(
             'users',
             'totalUsers',
             'activeUsers',
             'suspendedUsers',
-            'adminUsers'
+            'adminUsers',
+            'hostings' // ✅ add this
         ));
     }
 }

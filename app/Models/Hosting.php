@@ -78,4 +78,12 @@ class Hosting extends Model
     {
         return $query->where('cyberpanel_status', $status);
     }
+
+    /**
+     * Scope: Hosting logs
+     */
+    public function logs()
+    {
+        return $this->hasMany(HostingLog::class);
+    }
 }

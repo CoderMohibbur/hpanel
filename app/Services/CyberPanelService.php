@@ -5,99 +5,136 @@ namespace App\Services;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Client\Response;
+use Exception;
 
 class CyberPanelService
 {
-    protected string $apiUrl;
-    protected string $apiToken;
+    protected string $baseUrl;
+    protected string $token;
 
     public function __construct()
     {
-        $this->apiUrl = rtrim(config('services.cyberpanel.url'), '/');
-        $this->apiToken = config('services.cyberpanel.token');
+        $this->baseUrl = rtrim(config('services.cyberpanel.url'), '/');
+        $this->token   = config('services.cyberpanel.token');
     }
 
     /**
-     * Make POST request to CyberPanel API
+     * Make a POST request to CyberPanel API
+     *
+     * @param string $endpoint
+     * @param array $data
+     * @return Response
      */
     protected function post(string $endpoint, array $data): Response
     {
-        return Http::withToken($this->apiToken)
-            ->baseUrl($this->apiUrl)
+        return Http::withToken($this->token)
+            ->baseUrl($this->baseUrl)
             ->acceptJson()
             ->post($endpoint, $data);
     }
 
     /**
-     * Create a new website on CyberPanel
+     * Handle API response (success/error)
+     *
+     * @param Response $response
+     * @param string $action
+     * @param array $context
+     * @return array
      */
-    public function createWebsite(string $domain, string $package = 'default', string $ownerEmail): array
+    protected function handleResponse(Response $response, string $action, array $context = []): array
     {
-        $payload = [
-            'domainName' => $domain,
-            'package' => $package,
-            'ownerEmail' => $ownerEmail,
-            // 'ownerEmail' => $ownerEmail ?? auth()->user()->email,
-            'php' => '8.2',
-            'ssl' => true,
-        ];
-
-        $response = $this->post('/api/createWebsite', $payload);
-
         if ($response->successful()) {
             return [
                 'success' => true,
-                'data' => $response->json(),
+                'data'    => $response->json(),
             ];
         }
 
-        // Log error for debugging
-        Log::error('CyberPanel createWebsite failed', [
-            'domain' => $domain,
+        Log::error("CyberPanel {$action} failed", array_merge($context, [
             'response' => $response->body(),
-        ]);
+        ]));
 
         return [
             'success' => false,
-            'message' => $response->json('message') ?? 'Unknown error',
+            'message' => $response->json('message') ?? "{$action} failed",
         ];
     }
 
     /**
-     * Install WordPress on a domain
+     * Create a new website on CyberPanel
+     *
+     * @param string $domain
+     * @param string $package
+     * @param string $ownerEmail
+     * @return array
+     */
+    public function createWebsite(string $domain, string $package = 'default', string $ownerEmail): array
+    {
+        $payload = [
+            'domainName'  => $domain,
+            'package'     => $package,
+            'ownerEmail'  => $ownerEmail,
+            'php'         => '8.2',
+            'ssl'         => true,
+        ];
+
+        try {
+            $response = $this->post('/api/createWebsite', $payload);
+            return $this->handleResponse($response, 'createWebsite', ['domain' => $domain]);
+        } catch (Exception $e) {
+            Log::error("CyberPanel exception during createWebsite", [
+                'domain' => $domain,
+                'error'  => $e->getMessage(),
+            ]);
+
+            return [
+                'success' => false,
+                'message' => 'Exception: ' . $e->getMessage(),
+            ];
+        }
+    }
+
+    /**
+     * Install WordPress on a given domain
+     *
+     * @param string $domain
+     * @param string $title
+     * @param string $adminUser
+     * @param string $adminPass
+     * @param string $adminEmail
+     * @return array
      */
     public function installWordPress(string $domain, string $title, string $adminUser, string $adminPass, string $adminEmail): array
     {
         $payload = [
             'domainName' => $domain,
-            'wpTitle' => $title,
-            'wpUser' => $adminUser,
-            'wpPass' => $adminPass,
-            'wpEmail' => $adminEmail,
+            'wpTitle'    => $title,
+            'wpUser'     => $adminUser,
+            'wpPass'     => $adminPass,
+            'wpEmail'    => $adminEmail,
         ];
 
-        $response = $this->post('/api/installWordPress', $payload);
+        try {
+            $response = $this->post('/api/installWordPress', $payload);
+            return $this->handleResponse($response, 'installWordPress', ['domain' => $domain]);
+        } catch (Exception $e) {
+            Log::error("CyberPanel exception during WordPress install", [
+                'domain' => $domain,
+                'error'  => $e->getMessage(),
+            ]);
 
-        if ($response->successful()) {
             return [
-                'success' => true,
-                'data' => $response->json(),
+                'success' => false,
+                'message' => 'Exception: ' . $e->getMessage(),
             ];
         }
-
-        Log::error('CyberPanel WordPress install failed', [
-            'domain' => $domain,
-            'response' => $response->body(),
-        ]);
-
-        return [
-            'success' => false,
-            'message' => $response->json('message') ?? 'WordPress install failed',
-        ];
     }
 
     /**
-     * Delete an existing website (Optional)
+     * Delete an existing website
+     *
+     * @param string $domain
+     * @return array
      */
     public function deleteWebsite(string $domain): array
     {
@@ -105,23 +142,19 @@ class CyberPanelService
             'domainName' => $domain,
         ];
 
-        $response = $this->post('/api/deleteWebsite', $payload);
+        try {
+            $response = $this->post('/api/deleteWebsite', $payload);
+            return $this->handleResponse($response, 'deleteWebsite', ['domain' => $domain]);
+        } catch (Exception $e) {
+            Log::error("CyberPanel exception during deleteWebsite", [
+                'domain' => $domain,
+                'error'  => $e->getMessage(),
+            ]);
 
-        if ($response->successful()) {
             return [
-                'success' => true,
-                'data' => $response->json(),
+                'success' => false,
+                'message' => 'Exception: ' . $e->getMessage(),
             ];
         }
-
-        Log::error('CyberPanel deleteWebsite failed', [
-            'domain' => $domain,
-            'response' => $response->body(),
-        ]);
-
-        return [
-            'success' => false,
-            'message' => $response->json('message') ?? 'Delete failed',
-        ];
     }
 }
