@@ -27,9 +27,9 @@ return new class extends Migration
             $table->string('plan')->index();    // SaaS plan name (Free, Pro, etc.)
 
             // Status and Feedback
-            $table->enum('cyberpanel_status', ['pending', 'success', 'failed'])
+            $table->string('cyberpanel_status', 20)
                   ->default('pending')
-                  ->index();
+                  ->index(); // flexible for any status (pending, success, failed, active, suspended, etc.)
             $table->string('cyberpanel_message')->nullable(); // Optional: error/success from API
 
             // SSL + Expiry

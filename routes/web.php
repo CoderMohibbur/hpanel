@@ -20,11 +20,22 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     // 🖥️ Hosting Provisioning Routes
-    Route::prefix('hosting')->name('hosting.')->group(function () {
-        Route::get('/', [HostingController::class, 'index'])->name('index');
-        Route::get('/create', [HostingController::class, 'create'])->name('create');
-        Route::post('/', [HostingController::class, 'store'])->name('store');
-    });
+Route::prefix('hosting')->name('hosting.')->group(function () {
+    Route::get('/', [HostingController::class, 'index'])->name('index');
+    Route::get('/create', [HostingController::class, 'create'])->name('create');
+    Route::post('/', [HostingController::class, 'store'])->name('store');
+
+    // Edit & Update (Edit Form + Update Action)
+    Route::get('/{hosting}/edit', [HostingController::class, 'edit'])->name('edit');
+    Route::put('/{hosting}', [HostingController::class, 'update'])->name('update');
+
+    // Delete Hosting
+    Route::delete('/{hosting}', [HostingController::class, 'destroy'])->name('destroy');
+
+    // Refresh Status (Optional)
+    Route::post('/{hosting}/refresh-status', [HostingController::class, 'refreshStatus'])->name('refresh');
+});
+
 
         // 🧩 Hosting Tools (not part of CRUD)
     // Route::get('/hosting/{hosting}/dns', [DnsController::class, 'manage'])->name('dns.manage');

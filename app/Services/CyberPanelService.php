@@ -14,8 +14,11 @@ class CyberPanelService
 
     public function __construct()
     {
-        $this->baseUrl = rtrim(config('services.cyberpanel.url'), '/');
-        $this->token   = config('services.cyberpanel.token');
+        // $this->baseUrl = rtrim(config('services.cyberpanel.url'), '/');  // https://bdixserver.host4speed.com:8090/cloudAPI
+        // $this->token   = config('services.cyberpanel.token');
+
+        $this->baseUrl = 'https://bdixserver.host4speed.com:8090/cloudAPI';  // https://bdixserver.host4speed.com:8090/cloudAPI
+        $this->token   = 'Basic c8bf18bbb14b05e295978fd9a369ee3ef0e16702c0d3946d3aacdcc53d3208ae';
     }
 
     /**
@@ -68,31 +71,68 @@ class CyberPanelService
      * @param string $ownerEmail
      * @return array
      */
-    public function createWebsite(string $domain, string $package = 'default', string $ownerEmail): array
+    public function createWebsite(string $domain, string $package = 'Default', string $ownerEmail): array
     {
-        $payload = [
-            'domainName'  => $domain,
-            'package'     => $package,
-            'ownerEmail'  => $ownerEmail,
-            'php'         => '8.2',
-            'ssl'         => true,
-        ];
+        $payload = json_encode([
+            "serverUserName" => "admin",
+            "controller"     => "submitWebsiteCreation",
+            "domainName"     => $domain,
+            "package"        => $package,
+            "adminEmail"     => $ownerEmail,
+            "phpSelection"   => "PHP 7.4",
+            "websiteOwner"   => "admin",
+            "ssl"            => 0,
+            "dkimCheck"      => 0,
+            "openBasedir"    => 0
+        ]);
 
-        try {
-            $response = $this->post('/api/createWebsite', $payload);
-            return $this->handleResponse($response, 'createWebsite', ['domain' => $domain]);
-        } catch (Exception $e) {
-            Log::error("CyberPanel exception during createWebsite", [
-                'domain' => $domain,
-                'error'  => $e->getMessage(),
-            ]);
+        $curl = curl_init();
 
-            return [
-                'success' => false,
-                'message' => 'Exception: ' . $e->getMessage(),
-            ];
+        curl_setopt_array($curl, [
+            CURLOPT_URL => 'https://bdixserver.host4speed.com:8090/cloudAPI/',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'POST',
+            CURLOPT_POSTFIELDS => $payload,
+            CURLOPT_HTTPHEADER => [
+                'Authorization: Basic c8bf18bbb14b05e295978fd9a369ee3ef0e16702c0d3946d3aacdcc53d3208ae',
+                'Content-Type: application/json'
+            ],
+            CURLOPT_SSL_VERIFYPEER => false, // SSL Verify Disable
+        ]);
+
+        $response = curl_exec($curl);
+
+        if (curl_errno($curl)) {
+            $errorMsg = curl_error($curl);
+            curl_close($curl);
+            Log::error('cURL Error:', ['error' => $errorMsg]);
+            return ['success' => false, 'message' => $errorMsg];
         }
+
+        curl_close($curl);
+
+        Log::debug('CyberPanel API Response:', ['body' => $response]);
+
+        $decoded = json_decode($response, true);
+
+        if (json_last_error() !== JSON_ERROR_NONE) {
+            Log::error('Invalid JSON Response', ['response' => $response]);
+            return ['success' => false, 'message' => 'Invalid JSON response'];
+        }
+
+        return [
+            'success' => isset($decoded['status']) && $decoded['status'] == 1,
+            'data'    => $decoded
+        ];
     }
+
+
+
 
     /**
      * Install WordPress on a given domain
@@ -115,10 +155,12 @@ class CyberPanelService
         ];
 
         try {
-            $response = $this->post('/api/installWordPress', $payload);
+            $response = $this->post('/', array_merge([
+                'action' => 'installWordPress'
+            ], $payload));
             return $this->handleResponse($response, 'installWordPress', ['domain' => $domain]);
         } catch (Exception $e) {
-            Log::error("CyberPanel exception during WordPress install", [
+            Log::error("CyberPanel exception during installWordPress", [
                 'domain' => $domain,
                 'error'  => $e->getMessage(),
             ]);
@@ -138,23 +180,54 @@ class CyberPanelService
      */
     public function deleteWebsite(string $domain): array
     {
-        $payload = [
-            'domainName' => $domain,
-        ];
+        $payload = json_encode([
+            "serverUserName" => "admin",
+            "controller"     => "submitWebsiteDeletion",
+            "websiteName"    => $domain,
+        ]);
 
-        try {
-            $response = $this->post('/api/deleteWebsite', $payload);
-            return $this->handleResponse($response, 'deleteWebsite', ['domain' => $domain]);
-        } catch (Exception $e) {
-            Log::error("CyberPanel exception during deleteWebsite", [
-                'domain' => $domain,
-                'error'  => $e->getMessage(),
-            ]);
+        $curl = curl_init();
 
-            return [
-                'success' => false,
-                'message' => 'Exception: ' . $e->getMessage(),
-            ];
+        curl_setopt_array($curl, [
+            CURLOPT_URL => 'https://bdixserver.host4speed.com:8090/cloudAPI/',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'POST',
+            CURLOPT_POSTFIELDS => $payload,
+            CURLOPT_HTTPHEADER => [
+                'Authorization: Basic c8bf18bbb14b05e295978fd9a369ee3ef0e16702c0d3946d3aacdcc53d3208ae',
+                'Content-Type: application/json'
+            ],
+            CURLOPT_SSL_VERIFYPEER => false, // SSL Verify Disable
+        ]);
+
+        $response = curl_exec($curl);
+
+        if (curl_errno($curl)) {
+            $errorMsg = curl_error($curl);
+            curl_close($curl);
+            Log::error('cURL Error during deleteWebsite:', ['error' => $errorMsg]);
+            return ['success' => false, 'message' => $errorMsg];
         }
+
+        curl_close($curl);
+
+        Log::debug('CyberPanel DeleteWebsite API Response:', ['body' => $response]);
+
+        $decoded = json_decode($response, true);
+
+        if (json_last_error() !== JSON_ERROR_NONE) {
+            Log::error('Invalid JSON Response during deleteWebsite', ['response' => $response]);
+            return ['success' => false, 'message' => 'Invalid JSON response'];
+        }
+
+        return [
+            'success' => isset($decoded['status']) && $decoded['status'] == 1,
+            'data'    => $decoded
+        ];
     }
 }
