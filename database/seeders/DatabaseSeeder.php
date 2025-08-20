@@ -2,24 +2,22 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
 use App\Models\User;
+// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
     /**
      * Seed the application's database.
-     *
-     * This will:
-     * - Seed Super Admin user via AdminSeeder
-     * - Optionally create a demo user
      */
     public function run(): void
     {
-        // ✅ Seed default admin user
-        $this->call([
-            AdminSeeder::class,
-        ]);
+        // User::factory(10)->create();
 
+        User::factory()->create([
+            'name' => 'Test User',
+            'email' => 'test@example.com',
+        ]);
     }
 }

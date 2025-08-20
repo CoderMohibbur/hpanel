@@ -35,9 +35,4 @@ return [
         ],
     ],
 
-    'cyberpanel' => [
-        'url' => env('CYBERPANEL_URL'),
-        'token' => env('CYBERPANEL_TOKEN'),
-    ],
-
 ];

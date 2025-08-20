@@ -13,26 +13,11 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-
             $table->string('name');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-
-            // Admin flag
-            $table->boolean('is_admin')->default(false)->index();
-            $table->boolean('is_active')->default(true)->index(); // New field
-
-
-            // Optional fields for profile expansion
-            $table->string('phone')->nullable()->index();
-            $table->string('avatar')->nullable();
-
-            // Auth-related
             $table->rememberToken();
-
-            // Timestamps & Soft Deletes
-            $table->softDeletes(); // For user suspension or audit log
             $table->timestamps();
         });
 
@@ -57,8 +42,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('sessions');
-        Schema::dropIfExists('password_reset_tokens');
         Schema::dropIfExists('users');
+        Schema::dropIfExists('password_reset_tokens');
+        Schema::dropIfExists('sessions');
     }
 };
