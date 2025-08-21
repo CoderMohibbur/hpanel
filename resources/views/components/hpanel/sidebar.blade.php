@@ -1,0 +1,208 @@
+{{-- resources/views/components/sidebar.blade.php --}}
+<aside x-data="{ open: false }" x-init="$watch('open', v => document.body.classList.toggle('overflow-hidden', v))" @toggle-sidebar.window="open = !open"
+    @open-sidebar.window="open = true" @close-sidebar.window="open = false">
+
+    {{-- Backdrop (mobile) --}}
+    <div x-show="open" x-transition.opacity class="fixed inset-0 z-40 bg-black/45 lg:hidden" @click="open=false"
+        aria-hidden="true"></div>
+
+    {{-- Sidebar panel --}}
+    <nav class="fixed z-50 inset-y-0 left-0 top-16
+              w-72 lg:w-64 transform transition-transform duration-200
+              bg-white/90 dark:bg-[#0f172a]/95 backdrop-blur
+              border-r border-gray-200 dark:border-slate-800
+              text-gray-900 dark:text-slate-200
+              lg:translate-x-0
+              flex flex-col"
+        :class="{ '-translate-x-full': !open }" @keydown.escape.window="open=false">
+
+        {{-- Mobile top bar (h-12 = 3rem) --}}
+        <div
+            class="lg:hidden flex items-center justify-between px-3 h-12 border-b border-gray-200 dark:border-slate-800 shrink-0">
+            <span class="font-semibold text-sm">Navigation</span>
+            <button @click="open=false" class="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-slate-800"
+                aria-label="Close sidebar">
+                <i data-lucide="x" class="h-4 w-4"></i>
+            </button>
+        </div>
+
+        {{-- Body: now scrolls when menu is long --}}
+        <div class="flex-1 min-h-0 px-3 py-3 overflow-y-auto pr-2 main-scroll overscroll-contain">
+
+            {{-- Search (sidebar) – visible on all breakpoints & sticky --}}
+            <div
+                class="mb-3 sticky top-0 z-10 -mx-1 px-1 pt-1 pb-2
+         bg-transparent border-b border-transparent">
+
+                <div
+                    class="group flex items-center gap-2 h-10 lg:h-11 px-3 rounded-xl lg:rounded-2xl
+           bg-gray-50 dark:bg-white/5
+            border border-gray-200 dark:border-slate-700/60
+           text-gray-700 dark:text-slate-100
+            dark:shadow-[inset_0_0_0_1px_rgba(148,163,184,0.06)]
+           transition
+           focus-within:ring-2 focus-within:ring-indigo-400/40">
+
+                    <i data-lucide="search" class="h-4 w-4 opacity-70"></i>
+
+                    <input type="text" placeholder="Search menu…"
+                        class="flex-1 bg-transparent outline-none text-sm
+                  text-gray-900 dark:text-slate-100
+                  placeholder-gray-400 dark:placeholder-slate-400" />
+
+                    {{-- desktop hint (optional) --}}
+                    <kbd
+                        class="hidden lg:inline ml-2 text-[10px] px-1 py-0.5 rounded
+               border border-gray-300/60 dark:border-slate-700/70
+               text-gray-500 dark:text-slate-400">/</kbd>
+                </div>
+            </div>
+
+
+
+
+            @php
+                $items = [
+                    ['to' => '#', 'icon' => 'home', 'label' => 'Home', 'match' => 'dashboard'],
+                    ['to' => '#', 'icon' => 'layout-dashboard', 'label' => 'Websites', 'match' => 'websites*'],
+
+                    [
+                        'to' => '#',
+                        'icon' => 'globe',
+                        'label' => 'Domains',
+                        'match' => 'domains*',
+                        'children' => [
+                            ['to' => '#', 'label' => 'Domain portfolio'],
+                            ['to' => '#', 'label' => 'Get a New Domain'],
+                            ['to' => '#', 'label' => 'Transfers'],
+                        ],
+                    ],
+
+                    ['to' => '#', 'icon' => 'radar', 'label' => 'Horizons', 'match' => 'horizons*'],
+                    ['to' => '#', 'icon' => 'mail', 'label' => 'Emails', 'match' => 'emails*'],
+                    ['to' => '#', 'icon' => 'server', 'label' => 'VPS', 'match' => 'vps*'],
+                    ['to' => '#', 'icon' => 'shield', 'label' => 'Dark web monitoring', 'match' => 'monitor*'],
+
+                    [
+                        'to' => '#',
+                        'icon' => 'credit-card',
+                        'label' => 'Billing',
+                        'match' => 'billing*',
+                        'children' => [
+                            ['to' => '#', 'label' => 'Invoices'],
+                            ['to' => '#', 'label' => 'Subscriptions'],
+                            ['to' => '#', 'label' => 'Payment methods'],
+                        ],
+                    ],
+
+                    [
+                        'to' => '#',
+                        'icon' => 'users',
+                        'label' => 'Account Sharing',
+                        'match' => 'account*',
+                        'children' => [
+                            ['to' => '#', 'label' => 'Users'],
+                            ['to' => '#', 'label' => 'Invite user'],
+                            ['to' => '#', 'label' => 'Roles & permissions'],
+                        ],
+                    ],
+                ];
+            @endphp
+
+            <ul class="space-y-1 text-sm">
+                @foreach ($items as $i)
+                    @php
+                        $active = isset($i['match']) ? request()->is($i['match']) : false;
+                        $hasChildren = isset($i['children']);
+
+                        $activeClass = $active
+                            ? 'bg-indigo-500/10 dark:bg-indigo-400/10 text-indigo-700 dark:text-indigo-200
+                 border border-indigo-200/60 dark:border-indigo-400/20
+                 relative before:absolute before:left-0 before:top-1.5 before:h-7 before:w-1.5
+                 before:rounded-full before:bg-indigo-500 before:dark:bg-indigo-400'
+                            : 'border border-transparent';
+                    @endphp
+
+                    <li x-data="{ openItem: {{ $hasChildren && $active ? 'true' : 'false' }} }">
+                        <a href="{{ $i['to'] }}"
+                            class="group flex items-center gap-3 h-10 px-3 rounded-xl
+                      hover:bg-gray-100 dark:hover:bg-slate-800/80 {{ $activeClass }}">
+                            <i data-lucide="{{ $i['icon'] }}" class="h-5 w-5 opacity-75"></i>
+                            <span class="flex-1 truncate">{{ $i['label'] }}</span>
+
+                            @if ($hasChildren)
+                                <button type="button" @click.prevent="openItem = !openItem"
+                                    class="p-1 rounded-md hover:bg-gray-200/60 dark:hover:bg-slate-700/60
+                               focus:outline-none focus:ring-2 focus:ring-indigo-400/50">
+                                    <i x-show="!openItem" data-lucide="chevron-down" class="h-4 w-4"></i>
+                                    <i x-show="openItem" data-lucide="chevron-up" class="h-4 w-4"></i>
+                                </button>
+                            @endif
+                        </a>
+
+                        @if ($hasChildren)
+                            {{-- শুধু সাবমেনু স্ক্রলযোগ্য --}}
+                            <ul x-show="openItem" x-collapse
+                                class="ml-10 my-1 space-y-1 max-h-64 overflow-y-auto pr-1 sub-scroll
+                         rounded-md bg-gray-50/70 dark:bg-slate-800/40 border border-gray-200 dark:border-slate-700/60">
+                                @foreach ($i['children'] as $c)
+                                    <li>
+                                        <a href="{{ $c['to'] }}" @click="$dispatch('close-sidebar')"
+                                            class="block px-3 py-2 rounded-lg
+                              hover:bg-white/70 dark:hover:bg-slate-800
+                              focus:outline-none focus:ring-2 focus:ring-indigo-400/40">
+                                            {{ $c['label'] }}
+                                        </a>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        @endif
+                    </li>
+                @endforeach
+            </ul>
+
+            {{-- bottom padding so last dropdown never clips on small screens --}}
+            <div class="h-4 lg:h-2"></div>
+        </div>
+    </nav>
+
+    <style>
+        /* Scrollbar theming */
+        .main-scroll::-webkit-scrollbar {
+            width: 10px
+        }
+
+        .main-scroll::-webkit-scrollbar-thumb {
+            background: rgba(100, 116, 139, .25);
+            border-radius: 8px
+        }
+
+        .main-scroll::-webkit-scrollbar-track {
+            background: transparent
+        }
+
+        .sub-scroll::-webkit-scrollbar {
+            height: 8px;
+            width: 8px
+        }
+
+        .sub-scroll::-webkit-scrollbar-thumb {
+            background: rgba(100, 116, 139, .35);
+            border-radius: 8px
+        }
+
+        .sub-scroll::-webkit-scrollbar-track {
+            background: transparent
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .main-scroll::-webkit-scrollbar-thumb {
+                background: rgba(148, 163, 184, .25)
+            }
+
+            .sub-scroll::-webkit-scrollbar-thumb {
+                background: rgba(148, 163, 184, .35)
+            }
+        }
+    </style>
+</aside>
