@@ -1,10 +1,22 @@
 {{-- resources/views/components/sidebar.blade.php --}}
-<aside x-data="{ open: false }" x-init="$watch('open', v => document.body.classList.toggle('overflow-hidden', v))" @toggle-sidebar.window="open = !open"
-    @open-sidebar.window="open = true" @close-sidebar.window="open = false">
-
-    {{-- Backdrop (mobile) --}}
-    <div x-show="open" x-transition.opacity class="fixed inset-0 z-40 bg-black/45 lg:hidden" @click="open=false"
-        aria-hidden="true"></div>
+{{-- resources/views/components/hpanel/sidebar.blade.php --}}
+<aside x-data="{
+    open: false,
+    setPad() {
+        const pad = (this.open && window.innerWidth >= 1024) ? '16rem' : '0px';
+        document.documentElement.style.setProperty('--sidebar-pad', pad);
+        // mobile scroll lock only when overlayed
+        document.body.classList.toggle('overflow-hidden', this.open && window.innerWidth < 1024);
+    }
+}" x-init="open = window.matchMedia('(min-width:1024px)').matches; // lg ও বড় স্ক্রিনে ডিফল্ট open
+setPad();
+$watch('open', () => setPad());
+window.addEventListener('resize', setPad);
+window.addEventListener('toggle-sidebar', () => { open = !open });
+window.addEventListener('open-sidebar', () => { open = true });
+window.addEventListener('close-sidebar', () => { open = false });">
+    {{-- Backdrop same as before --}}
+    <div x-show="open" x-transition.opacity class="fixed inset-0 z-40 bg-black/45 lg:hidden" @click="open=false"></div>
 
     {{-- Sidebar panel --}}
     <nav class="fixed z-50 inset-y-0 left-0 top-16
@@ -12,7 +24,6 @@
               bg-white/90 dark:bg-[#0f172a]/95 backdrop-blur
               border-r border-gray-200 dark:border-slate-800
               text-gray-900 dark:text-slate-200
-              lg:translate-x-0
               flex flex-col"
         :class="{ '-translate-x-full': !open }" @keydown.escape.window="open=false">
 
@@ -63,8 +74,8 @@
 
             @php
                 $items = [
-                    ['to' => '#', 'icon' => 'home', 'label' => 'Home', 'match' => 'dashboard'],
-                    ['to' => '#', 'icon' => 'layout-dashboard', 'label' => 'Websites', 'match' => 'websites*'],
+                    ['to' => '/', 'icon' => 'home', 'label' => 'Home', 'match' => 'dashboard'],
+                    ['to' => '/hosting', 'icon' => 'layout-dashboard', 'label' => 'Websites', 'match' => 'websites*'],
 
                     [
                         'to' => '#',
@@ -72,15 +83,15 @@
                         'label' => 'Domains',
                         'match' => 'domains*',
                         'children' => [
-                            ['to' => '#', 'label' => 'Domain portfolio'],
-                            ['to' => '#', 'label' => 'Get a New Domain'],
-                            ['to' => '#', 'label' => 'Transfers'],
+                            ['to' => route('domains.index'), 'label' => 'Domain portfolio'],
+                            ['to' => route('domains.register'), 'label' => 'Get a New Domain'],
+                            ['to' => route('domains.transfer'), 'label' => 'Transfers'],
                         ],
                     ],
 
-                    ['to' => '#', 'icon' => 'radar', 'label' => 'Horizons', 'match' => 'horizons*'],
-                    ['to' => '#', 'icon' => 'mail', 'label' => 'Emails', 'match' => 'emails*'],
-                    ['to' => '#', 'icon' => 'server', 'label' => 'VPS', 'match' => 'vps*'],
+                    ['to' => '/horizons', 'icon' => 'radar', 'label' => 'Horizons', 'match' => 'horizons*'],
+                    ['to' => '/email', 'icon' => 'mail', 'label' => 'Emails', 'match' => 'emails*'],
+                    ['to' => route('vps.index'), 'icon' => 'server', 'label' => 'VPS', 'match' => 'vps*'],
                     ['to' => '#', 'icon' => 'shield', 'label' => 'Dark web monitoring', 'match' => 'monitor*'],
 
                     [

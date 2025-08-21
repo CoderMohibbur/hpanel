@@ -4,13 +4,13 @@
          bg-white/80 dark:bg-[#0f172a]/95 backdrop-blur supports-[backdrop-filter]:bg-white/90
          text-gray-900 dark:text-slate-200">
 
-    <div class="mx-auto max-w-7xl h-16 px-3 sm:px-6 lg:px-8 grid grid-cols-3 items-center gap-2">
+    <div class="mx-auto max-w-full h-16 px-3 sm:px-6 lg:px-8 grid grid-cols-3 items-center gap-2">
 
         {{-- Left: menu toggle + logo --}}
         <div class="flex items-center gap-2">
-            {{-- Mobile sidebar toggle --}}
+            {{-- Sidebar toggle: visible on all breakpoints --}}
             <button @click="window.dispatchEvent(new CustomEvent('toggle-sidebar'))"
-                class="sm:hidden p-2 rounded-xl hover:bg-gray-100 dark:hover:bg-slate-800 focus:outline-none"
+                class="p-2 rounded-xl hover:bg-gray-100 dark:hover:bg-slate-800 focus:outline-none"
                 aria-label="Toggle sidebar">
                 <i data-lucide="menu" class="h-5 w-5"></i>
             </button>
@@ -21,6 +21,7 @@
                 <span class="font-semibold tracking-tight">{{ config('app.name', 'H-Panel') }}</span>
             </a>
         </div>
+
 
 
 

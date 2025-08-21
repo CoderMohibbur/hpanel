@@ -16,7 +16,7 @@
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
 
-<body>
+<body class="bg-gray-100 dark:bg-gray-900">
     {{-- Header --}}
     @include('components.hpanel.header')
 
@@ -24,7 +24,15 @@
     @include('components.hpanel.sidebar')
 
     {{-- @include('layouts.bottom-menu') --}}
-    <div id="smooth-content" class="w-full mx-auto pt-16 font-sans text-gray-900 dark:text-gray-100 antialiased">
+    <div id="smooth-content"
+     class="w-full mx-auto pt-16
+            lg:[padding-left:var(--sidebar-pad,16rem)]
+            transition-[padding-left]
+            font-sans text-gray-900 dark:text-gray-100 antialiased">
+
+            {{-- <div id="smooth-content"
+     class="w-full mx-auto pt-16 lg:pl-64 transition-[padding]
+            font-sans text-gray-900 dark:text-gray-100 antialiased"> --}}
         {{ $slot }}
     </div>
 
