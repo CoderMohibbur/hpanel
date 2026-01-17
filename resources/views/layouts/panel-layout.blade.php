@@ -100,14 +100,16 @@
             /* hover expand only when collapsed (overlay, no content jump) */
             body.sidebar-collapsed.sidebar-hover #logo-sidebar {
                 width: var(--sidebar-expanded);
-                z-index: 49;
-                /* navbar z-50 এর নিচে থাকবে */
+                /* z-index দেবেন না (navbar z-50, sidebar z-40 থাকলেই enough) */
                 box-shadow: 0 10px 30px rgba(0, 0, 0, .25);
             }
 
+
+            /* hover expand হলে content-ও right এ সরে যাবে */
             body.sidebar-collapsed.sidebar-hover main.panel-main {
-                margin-left: var(--sidebar-collapsed);
+                margin-left: var(--sidebar-expanded);
             }
+
 
             /* hide labels when collapsed and not hovering */
             body.sidebar-collapsed:not(.sidebar-hover) .sidebar-label {
@@ -257,10 +259,12 @@
 
     {{-- Sidebar --}}
     <aside id="logo-sidebar"
-        class="fixed top-0 left-0 z-40 h-screen pt-16 transition-transform duration-300 -translate-x-full
-               bg-white border-r border-gray-200 sm:translate-x-0
-               dark:bg-gray-800 dark:border-gray-700"
+        class="fixed top-16 left-0 z-40 w-64 h-[calc(100vh-4rem)]
+           transition-[width,transform] duration-300 -translate-x-full
+           bg-white border-r border-gray-200 sm:translate-x-0
+           dark:bg-gray-800 dark:border-gray-700"
         aria-label="Sidebar">
+
         <div class="h-full px-3 pb-4 overflow-y-auto">
             <ul class="space-y-1 font-medium mt-2">
                 @foreach ($nav as $item)
