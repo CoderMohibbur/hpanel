@@ -10,17 +10,17 @@
     {{-- Header + breadcrumb + primary actions --}}
     <div class="mb-6 flex items-start justify-between gap-4">
       <div>
-        <div class="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
-          <a href="{{ url('/') }}" class="inline-flex items-center gap-1 hover:text-gray-700 dark:hover:text-slate-200">
+        <div class="flex items-center gap-2 text-sm text-gray-500">
+          <a href="{{ url('/') }}" class="inline-flex items-center gap-1 hover:text-gray-700">
             <i data-lucide="home" class="h-4 w-4"></i> Home
           </a>
           <span class="opacity-60">/</span>
           <span>Domain portfolio</span>
         </div>
-        <h1 class="mt-1 text-xl sm:text-2xl font-semibold text-gray-900 dark:text-white">
+        <h1 class="mt-1 text-xl sm:text-2xl font-semibold text-gray-900">
           Domain portfolio
         </h1>
-        <p class="mt-1 text-sm text-gray-600 dark:text-gray-300">
+        <p class="mt-1 text-sm text-gray-600">
           Manage registrations, renewals, DNS and transfers — all in one place.
         </p>
       </div>
@@ -28,14 +28,14 @@
 
     {{-- Empty state (when no domains at all) --}}
     <template x-if="stats.total === 0">
-      <div class="rounded-2xl border border-gray-200 dark:border-slate-800 bg-white dark:bg-[#0b1220] shadow-sm">
+      <div class="rounded-2xl border border-gray-200 bg-white shadow-sm">
         <div class="px-6 sm:px-10 py-14 text-center max-w-3xl mx-auto">
-          <img src="{{ asset('images/domain.png') }}" alt="Domain" class="mx-auto h-14 w-14 text-indigo-400/60 dark:text-indigo-300/70">
+          <img src="{{ asset('images/domain.png') }}" alt="Domain" class="mx-auto h-14 w-14 text-indigo-400/60">
 
-          <h2 class="mt-6 text-lg sm:text-xl font-semibold text-gray-900 dark:text-white">
+          <h2 class="mt-6 text-lg sm:text-xl font-semibold text-gray-900">
             Get a domain to get your website online
           </h2>
-          <p class="mt-2 text-sm text-gray-600 dark:text-gray-300">
+          <p class="mt-2 text-sm text-gray-600">
             Register a new domain or transfer a domain you already own.
           </p>
 
@@ -47,7 +47,7 @@
               Get new domain
             </a>
             <a href="{{ route('domains.transfer') }}"
-               class="text-sm font-medium text-indigo-600 dark:text-indigo-400 hover:underline">
+               class="text-sm font-medium text-indigo-600 hover:underline">
               Transfer domain
             </a>
           </div>
@@ -60,35 +60,35 @@
       <div>
         {{-- Stat summary --}}
         <div class="grid sm:grid-cols-3 gap-3 mb-5">
-          <div class="rounded-xl border border-gray-200 dark:border-slate-800 bg-white dark:bg-[#0b1220] p-4">
-            <div class="text-xs text-gray-500 dark:text-gray-400">Total domains</div>
-            <div class="mt-1 text-xl font-semibold text-gray-900 dark:text-white" x-text="stats.total"></div>
+          <div class="rounded-xl border border-gray-200 bg-white p-4">
+            <div class="text-xs text-gray-500">Total domains</div>
+            <div class="mt-1 text-xl font-semibold text-gray-900" x-text="stats.total"></div>
           </div>
-          <div class="rounded-xl border border-gray-200 dark:border-slate-800 bg-white dark:bg-[#0b1220] p-4">
-            <div class="text-xs text-gray-500 dark:text-gray-400">Active</div>
-            <div class="mt-1 text-xl font-semibold text-emerald-600 dark:text-emerald-400" x-text="stats.active"></div>
+          <div class="rounded-xl border border-gray-200 bg-white p-4">
+            <div class="text-xs text-gray-500">Active</div>
+            <div class="mt-1 text-xl font-semibold text-emerald-600" x-text="stats.active"></div>
           </div>
-          <div class="rounded-xl border border-gray-200 dark:border-slate-800 bg-white dark:bg-[#0b1220] p-4">
-            <div class="text-xs text-gray-500 dark:text-gray-400">Expiring (≤30 days)</div>
-            <div class="mt-1 text-xl font-semibold text-amber-600 dark:text-amber-400" x-text="stats.expiring"></div>
+          <div class="rounded-xl border border-gray-200 bg-white p-4">
+            <div class="text-xs text-gray-500">Expiring (≤30 days)</div>
+            <div class="mt-1 text-xl font-semibold text-amber-600" x-text="stats.expiring"></div>
           </div>
         </div>
 
         {{-- Controls: tabs + search + sort --}}
         <div class="mb-4 flex flex-col lg:flex-row items-stretch lg:items-center gap-3">
           {{-- Tabs --}}
-          <div class="inline-flex rounded-xl border border-gray-200 dark:border-slate-800 bg-white dark:bg-[#0b1220] p-1">
+          <div class="inline-flex rounded-xl border border-gray-200 bg-white p-1">
             <button class="px-3 h-9 rounded-lg text-sm"
-                    :class="tab==='all'      ? 'bg-indigo-600 text-white shadow' : 'text-gray-700 dark:text-slate-200'"
+                    :class="tab==='all'      ? 'bg-indigo-600 text-white shadow' : 'text-gray-700'"
                     @click="tab='all'">All</button>
             <button class="px-3 h-9 rounded-lg text-sm"
-                    :class="tab==='active'   ? 'bg-indigo-600 text-white shadow' : 'text-gray-700 dark:text-slate-200'"
+                    :class="tab==='active'   ? 'bg-indigo-600 text-white shadow' : 'text-gray-700'"
                     @click="tab='active'">Active</button>
             <button class="px-3 h-9 rounded-lg text-sm"
-                    :class="tab==='expiring' ? 'bg-indigo-600 text-white shadow' : 'text-gray-700 dark:text-slate-200'"
+                    :class="tab==='expiring' ? 'bg-indigo-600 text-white shadow' : 'text-gray-700'"
                     @click="tab='expiring'">Expiring soon</button>
             <button class="px-3 h-9 rounded-lg text-sm"
-                    :class="tab==='expired'  ? 'bg-indigo-600 text-white shadow' : 'text-gray-700 dark:text-slate-200'"
+                    :class="tab==='expired'  ? 'bg-indigo-600 text-white shadow' : 'text-gray-700'"
                     @click="tab='expired'">Expired</button>
           </div>
 
@@ -97,20 +97,20 @@
 
           {{-- Search --}}
           <div class="flex items-center gap-2 h-10 px-3 rounded-xl
-                      bg-gray-50 dark:bg-slate-800/80
-                      border border-gray-200 dark:border-slate-700 text-gray-700 dark:text-slate-100 w-full lg:w-80">
+                      bg-gray-50
+                      border border-gray-200 text-gray-700 w-full lg:w-80">
             <i data-lucide="search" class="h-4 w-4 opacity-75"></i>
             <input x-model.trim="q" type="text" placeholder="Search domains…"
-                   class="flex-1 bg-transparent outline-none text-sm placeholder-gray-400 dark:placeholder-slate-400">
-            <button x-show="q" @click="q=''" class="p-1 rounded-md hover:bg-gray-200/60 dark:hover:bg-slate-700/60">
+                   class="flex-1 bg-transparent outline-none text-sm placeholder-gray-400">
+            <button x-show="q" @click="q=''" class="p-1 rounded-md hover:bg-gray-200/60">
               <i data-lucide="x" class="h-4 w-4"></i>
             </button>
           </div>
 
           {{-- Sort --}}
-          <div class="inline-flex items-center h-10 px-3 rounded-xl border border-gray-200 dark:border-slate-800 bg-white dark:bg-[#0b1220]">
-            <span class="text-sm text-gray-600 dark:text-gray-300 mr-2">Sort:</span>
-            <select x-model="sortBy" class="bg-transparent text-sm outline-none text-gray-800 dark:text-slate-100">
+          <div class="inline-flex items-center h-10 px-3 rounded-xl border border-gray-200 bg-white">
+            <span class="text-sm text-gray-600 mr-2">Sort:</span>
+            <select x-model="sortBy" class="bg-transparent text-sm outline-none text-gray-800">
               <option value="expiryAsc">Expiry (soonest)</option>
               <option value="expiryDesc">Expiry (latest)</option>
               <option value="nameAsc">Name A–Z</option>
@@ -120,9 +120,9 @@
         </div>
 
         {{-- Table --}}
-        <div class="rounded-2xl border border-gray-200 dark:border-slate-800 bg-white dark:bg-[#0b1220] overflow-hidden">
+        <div class="rounded-2xl border border-gray-200 bg-white overflow-hidden">
           <template x-if="rows.length === 0">
-            <div class="px-6 py-12 text-center text-sm text-gray-600 dark:text-gray-300">
+            <div class="px-6 py-12 text-center text-sm text-gray-600">
               No domains match your filters.
             </div>
           </template>
@@ -130,7 +130,7 @@
           <template x-if="rows.length > 0">
             <div class="overflow-x-auto">
               <table class="min-w-full text-sm">
-                <thead class="bg-gray-50 dark:bg-slate-900/40 text-gray-600 dark:text-slate-300">
+                <thead class="bg-gray-50 text-gray-600">
                   <tr>
                     <th class="px-4 py-3 text-left">Domain</th>
                     <th class="px-4 py-3 text-left">Status</th>
@@ -139,17 +139,17 @@
                     <th class="px-4 py-3 text-right">Actions</th>
                   </tr>
                 </thead>
-                <tbody class="divide-y divide-gray-200 dark:divide-slate-800 text-gray-800 dark:text-slate-100">
+                <tbody class="divide-y divide-gray-200 text-gray-800">
                   <template x-for="d in rows" :key="d.name">
-                    <tr class="hover:bg-gray-50 dark:hover:bg-slate-800/50">
+                    <tr class="hover:bg-gray-50">
                       <td class="px-4 py-3">
                         <div class="flex items-center gap-3">
-                          <div class="h-7 w-7 grid place-items-center rounded-full bg-gray-100 dark:bg-slate-800">
+                          <div class="h-7 w-7 grid place-items-center rounded-full bg-gray-100">
                             <i data-lucide="globe" class="h-4 w-4"></i>
                           </div>
                           <div>
                             <div class="font-medium" x-text="d.name"></div>
-                            <div class="text-xs text-gray-500 dark:text-gray-400" x-text="d.registrar ?? '—'"></div>
+                            <div class="text-xs text-gray-500" x-text="d.registrar ?? '—'"></div>
                           </div>
                         </div>
                       </td>
@@ -157,19 +157,19 @@
                       <td class="px-4 py-3">
                         <template x-if="d.status==='active'">
                           <span class="inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[11px]
-                                        bg-emerald-100 text-emerald-700 dark:bg-emerald-500/15 dark:text-emerald-300">
+                                        bg-emerald-100 text-emerald-700">
                             <i data-lucide="check" class="h-3.5 w-3.5"></i> Active
                           </span>
                         </template>
                         <template x-if="d.status==='expiring'">
                           <span class="inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[11px]
-                                        bg-amber-100 text-amber-700 dark:bg-amber-500/15 dark:text-amber-300">
+                                        bg-amber-100 text-amber-700">
                             <i data-lucide="alert-triangle" class="h-3.5 w-3.5"></i> Expiring soon
                           </span>
                         </template>
                         <template x-if="d.status==='expired'">
                           <span class="inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[11px]
-                                        bg-rose-100 text-rose-700 dark:bg-rose-500/15 dark:text-rose-300">
+                                        bg-rose-100 text-rose-700">
                             <i data-lucide="x-circle" class="h-3.5 w-3.5"></i> Expired
                           </span>
                         </template>
@@ -181,9 +181,9 @@
                                        ring-1 ring-inset"
                                 :class="d.auto
                                         ? 'bg-indigo-600 ring-indigo-500/40'
-                                        : 'bg-gray-200 dark:bg-slate-700 ring-gray-300/50 dark:ring-slate-600/50'">
+                                        : 'bg-gray-200 ring-gray-300/50'">
                           <span class="sr-only">Toggle auto-renew</span>
-                          <span class="inline-block h-5 w-5 transform rounded-full bg-white dark:bg-slate-200 transition"
+                          <span class="inline-block h-5 w-5 transform rounded-full bg-white transition"
                                 :class="d.auto ? 'translate-x-5' : 'translate-x-1'"></span>
                         </button>
                       </td>
@@ -191,15 +191,15 @@
                       <td class="px-4 py-3">
                         <div class="flex items-center gap-2">
                           <span x-text="formatDate(d.expiry)"></span>
-                          <span class="text-xs text-gray-500 dark:text-gray-400" x-text="daysLeftText(d)"></span>
+                          <span class="text-xs text-gray-500" x-text="daysLeftText(d)"></span>
                         </div>
                       </td>
 
                       <td class="px-4 py-3 text-right">
                         <div class="inline-flex items-center gap-1">
                           <a href="#"
-                             class="px-3 h-8 rounded-lg text-xs font-semibold bg-gray-100 dark:bg-slate-800
-                                    text-gray-800 dark:text-slate-200 hover:bg-gray-200 dark:hover:bg-slate-700">
+                             class="px-3 h-8 rounded-lg text-xs font-semibold bg-gray-100
+                                    text-gray-800 hover:bg-gray-200">
                             DNS
                           </a>
                           <a href="#"
@@ -207,7 +207,7 @@
                                     bg-indigo-600 hover:bg-indigo-700">
                             Manage
                           </a>
-                          <button class="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-slate-800">
+                          <button class="p-2 rounded-lg hover:bg-gray-100">
                             <i data-lucide="more-horizontal" class="h-4 w-4"></i>
                           </button>
                         </div>

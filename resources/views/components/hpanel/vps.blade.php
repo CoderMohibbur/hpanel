@@ -9,27 +9,27 @@
 
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
     {{-- Breadcrumb + Title --}}
-    <div class="mb-4 text-sm text-gray-500 dark:text-gray-400">
+    <div class="mb-4 text-sm text-gray-500">
       <a href="/" class="hover:underline">Home</a>
       <span class="mx-2">/</span>
-      <span class="font-medium text-gray-700 dark:text-gray-200">VPS</span>
+      <span class="font-medium text-gray-700">VPS</span>
     </div>
 
-    <h1 class="text-2xl sm:text-3xl font-bold tracking-tight text-gray-900 dark:text-white">
+    <h1 class="text-2xl sm:text-3xl font-bold tracking-tight text-gray-900">
       Build applications, host websites, or play games with VPS
     </h1>
-    <p class="mt-2 text-gray-600 dark:text-gray-300">
+    <p class="mt-2 text-gray-600">
       Choose KVM for dedicated resources or Game Panel for your game servers.
     </p>
 
     {{-- Two big option cards --}}
     <div class="mt-6 grid md:grid-cols-2 gap-6">
-      <div class="rounded-2xl border border-gray-200/70 dark:border-slate-800/70 bg-white/90 dark:bg-[#0b1220]/90 shadow-sm">
+      <div class="rounded-2xl border border-gray-200/70 bg-white/90 shadow-sm">
         <div class="p-5 sm:p-6">
           <img src="/images/vps/kvm-stacks.png" alt="KVM VPS Stacks" class="h-10 opacity-90">
-          <div class="mt-5 rounded-xl border border-gray-200 dark:border-slate-800 p-4 bg-gray-50/70 dark:bg-slate-900/40">
-            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">KVM VPS</h3>
-            <p class="mt-1 text-sm text-gray-600 dark:text-gray-300">
+          <div class="mt-5 rounded-xl border border-gray-200 p-4 bg-gray-50/70">
+            <h3 class="text-lg font-semibold text-gray-900">KVM VPS</h3>
+            <p class="mt-1 text-sm text-gray-600">
               Build your application or website with dedicated resources and complete control of your server.
             </p>
             <a href="{{ url('/vps/kvm') }}"
@@ -42,12 +42,12 @@
         </div>
       </div>
 
-      <div class="rounded-2xl border border-gray-200/70 dark:border-slate-800/70 bg-white/90 dark:bg-[#0b1220]/90 shadow-sm">
+      <div class="rounded-2xl border border-gray-200/70 bg-white/90 shadow-sm">
         <div class="p-5 sm:p-6">
           <img src="/images/vps/game-icons.png" alt="Game Panel Icons" class="h-10 opacity-90">
-          <div class="mt-5 rounded-xl border border-gray-200 dark:border-slate-800 p-4 bg-gray-50/70 dark:bg-slate-900/40">
-            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Game Panel</h3>
-            <p class="mt-1 text-sm text-gray-600 dark:text-gray-300">
+          <div class="mt-5 rounded-xl border border-gray-200 p-4 bg-gray-50/70">
+            <h3 class="text-lg font-semibold text-gray-900">Game Panel</h3>
+            <p class="mt-1 text-sm text-gray-600">
               Host your favorite games with top‑tier processors and full customization for an unbeatable gaming experience.
             </p>
             <a href="{{ url('/vps/game-panel') }}"
@@ -63,41 +63,41 @@
 
     {{-- VPS plans quick grid (optional, can hide/remove) --}}
     <div class="reveal mt-10">
-      <h2 class="text-xl font-bold text-gray-900 dark:text-white text-center">Popular KVM VPS Plans</h2>
+      <h2 class="text-xl font-bold text-gray-900 text-center">Popular KVM VPS Plans</h2>
       <div class="mt-6 grid md:grid-cols-3 gap-6">
         <template x-for="p in plans" :key="p.slug">
           <div class="group rounded-2xl p-[1px]"
                :class="p.accent ? 'bg-gradient-to-r from-indigo-500/60 to-fuchsia-500/60' : 'bg-transparent'">
-            <div class="rounded-xl border border-gray-200/70 dark:border-slate-800/70 bg-white/90 dark:bg-[#0b1220]/90 shadow-md p-5">
+            <div class="rounded-xl border border-gray-200/70 bg-white/90 shadow-md p-5">
               <div class="flex items-center justify-between">
-                <h3 class="font-semibold text-gray-900 dark:text-white" x-text="p.name"></h3>
+                <h3 class="font-semibold text-gray-900" x-text="p.name"></h3>
                 <template x-if="p.tag">
                   <span class="text-[10px] px-2 py-0.5 rounded-full bg-indigo-600 text-white font-semibold" x-text="p.tag"></span>
                 </template>
               </div>
               <div class="mt-2 flex items-end gap-2">
-                <div class="text-3xl font-extrabold text-gray-900 dark:text-white">
+                <div class="text-3xl font-extrabold text-gray-900">
                   US$ <span x-text="p.price.toFixed(2)"></span>
                 </div>
-                <span class="text-sm text-gray-500 dark:text-gray-400">/mo</span>
+                <span class="text-sm text-gray-500">/mo</span>
               </div>
 
               <ul class="mt-4 space-y-2 text-sm">
                 <li class="flex gap-2">
                   <svg class="h-4 w-4 text-emerald-500 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="m5 13 4 4L19 7"/></svg>
-                  <span class="text-gray-700 dark:text-slate-200" x-text="p.cpu + ' vCPU'"></span>
+                  <span class="text-gray-700" x-text="p.cpu + ' vCPU'"></span>
                 </li>
                 <li class="flex gap-2">
                   <svg class="h-4 w-4 text-emerald-500 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="m5 13 4 4L19 7"/></svg>
-                  <span class="text-gray-700 dark:text-slate-200" x-text="p.ram + ' GB RAM'"></span>
+                  <span class="text-gray-700" x-text="p.ram + ' GB RAM'"></span>
                 </li>
                 <li class="flex gap-2">
                   <svg class="h-4 w-4 text-emerald-500 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="m5 13 4 4L19 7"/></svg>
-                  <span class="text-gray-700 dark:text-slate-200" x-text="p.ssd + ' GB NVMe'"></span>
+                  <span class="text-gray-700" x-text="p.ssd + ' GB NVMe'"></span>
                 </li>
                 <li class="flex gap-2">
                   <svg class="h-4 w-4 text-emerald-500 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="m5 13 4 4L19 7"/></svg>
-                  <span class="text-gray-700 dark:text-slate-200">Dedicated IPv4 & full root</span>
+                  <span class="text-gray-700">Dedicated IPv4 & full root</span>
                 </li>
               </ul>
 
@@ -113,8 +113,8 @@
 
     {{-- ===== VPS Hosting FAQ (same style as hosting) ===== --}}
     <div class="reveal mt-12">
-      <h2 class="text-center text-2xl font-bold tracking-tight text-gray-900 dark:text-white">VPS Hosting FAQ</h2>
-      <p class="mt-2 text-center text-sm text-gray-600 dark:text-gray-300">
+      <h2 class="text-center text-2xl font-bold tracking-tight text-gray-900">VPS Hosting FAQ</h2>
+      <p class="mt-2 text-center text-sm text-gray-600">
         Short, clear answers to the most common questions.
       </p>
 
@@ -129,24 +129,24 @@
         ];
       @endphp
 
-      <div class="mt-6 rounded-xl border border-gray-200/70 dark:border-slate-800/70
-                  bg-white/90 dark:bg-[#0b1220]/90 backdrop-blur-sm shadow-sm">
+      <div class="mt-6 rounded-xl border border-gray-200/70
+                  bg-white/90 backdrop-blur-sm shadow-sm">
         @foreach ($faqs as $f)
-          <details class="group border-b border-gray-200/70 dark:border-slate-800/70 last:border-0">
+          <details class="group border-b border-gray-200/70 last:border-0">
             <summary class="flex items-start gap-3 px-5 sm:px-6 py-4 cursor-pointer select-none
-                            hover:bg-gray-50/80 dark:hover:bg-slate-900/60
-                            group-open:bg-indigo-50/40 dark:group-open:bg-indigo-500/5
-                            group-open:border-indigo-200/70 dark:group-open:border-indigo-600/40">
+                            hover:bg-gray-50/80
+                            group-open:bg-indigo-50/40
+                            group-open:border-indigo-200/70">
               <span class="mt-0.5 inline-grid place-items-center h-7 w-7 rounded-full
-                           bg-indigo-50 text-indigo-700 dark:bg-indigo-500/10 dark:text-indigo-300">
+                           bg-indigo-50 text-indigo-700">
                 <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M8 10a4 4 0 1 1 8 0c0 3-4 3-4 6m0 4h.01"/>
                 </svg>
               </span>
-              <span class="flex-1 font-medium text-gray-900 dark:text-white">{{ $f['q'] }}</span>
+              <span class="flex-1 font-medium text-gray-900">{{ $f['q'] }}</span>
               <span class="ml-3 shrink-0 grid place-items-center h-6 w-6 rounded-full
-                           border border-gray-300/70 dark:border-slate-700/70
-                           text-gray-600 dark:text-slate-300 transition-transform group-open:rotate-180">
+                           border border-gray-300/70
+                           text-gray-600 transition-transform group-open:rotate-180">
                 <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <path stroke-linecap="round" stroke-linejoin="round" d="m6 9 6 6 6-6"/>
                 </svg>
@@ -155,16 +155,16 @@
             <div class="px-5 sm:px-6 pb-4 pt-0 grid transition-all duration-300 ease-out
                         grid-rows-[0fr] group-open:grid-rows-[1fr]">
               <div class="overflow-hidden">
-                <p class="text-sm leading-relaxed text-gray-600 dark:text-gray-300">{{ $f['a'] }}</p>
+                <p class="text-sm leading-relaxed text-gray-600">{{ $f['a'] }}</p>
               </div>
             </div>
           </details>
         @endforeach
       </div>
 
-      <div class="mt-5 text-center text-xs text-gray-500 dark:text-gray-400">
+      <div class="mt-5 text-center text-xs text-gray-500">
         Still have questions?
-        <a href="#" class="text-indigo-600 dark:text-indigo-400 hover:underline">Contact support</a>
+        <a href="#" class="text-indigo-600 hover:underline">Contact support</a>
       </div>
     </div>
   </div>

@@ -12,33 +12,33 @@
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
     {{-- Heading --}}
     <div class="text-center">
-      <h1 class="text-2xl sm:text-3xl font-bold tracking-tight text-gray-900 dark:text-white">
+      <h1 class="text-2xl sm:text-3xl font-bold tracking-tight text-gray-900">
         Select Your Email Plan
       </h1>
-      <p class="mt-2 text-gray-600 dark:text-gray-300">
+      <p class="mt-2 text-gray-600">
         Branded mailboxes with robust security & migration support.
       </p>
     </div>
 
     {{-- Billing period dropdown --}}
     <div class="mt-6 flex items-center justify-center gap-3">
-      <label class="text-sm text-gray-600 dark:text-gray-400">Choose billing period</label>
+      <label class="text-sm text-gray-600">Choose billing period</label>
       <div class="relative">
         <select x-model.number="months" @change="onMonthsChange()"
                 class="peer appearance-none pl-3 pr-8 py-2 text-sm rounded-xl border
-                       border-gray-200 dark:border-slate-700 bg-white dark:bg-[#0b1220]
-                       text-gray-800 dark:text-slate-100">
+                       border-gray-200 bg-white
+                       text-gray-800">
           <option value="48">48 months</option>
           <option value="24">24 months</option>
           <option value="12">12 months</option>
           <option value="1">1 month</option>
         </select>
         <svg class="pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 h-4 w-4
-                    text-gray-500 dark:text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    text-gray-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path stroke-linecap="round" stroke-linejoin="round" d="m6 9 6 6 6-6"/>
         </svg>
       </div>
-      <span class="text-xs text-gray-500 dark:text-gray-400">(<span x-text="monthsLabel"></span>)</span>
+      <span class="text-xs text-gray-500">(<span x-text="monthsLabel"></span>)</span>
     </div>
 
     {{-- Plans grid --}}
@@ -48,8 +48,8 @@
           <div class="group/card rounded-2xl"
                :class="p.accent ? 'p-[1px] bg-gradient-to-r from-indigo-500/60 to-fuchsia-500/60' : 'p-[1px] bg-transparent'">
             <div class="relative h-full rounded-xl
-                        bg-white/90 dark:bg-[#0b1220]/90 backdrop-blur-sm
-                        border border-gray-200/70 dark:border-slate-800/70
+                        bg-white/90 backdrop-blur-sm
+                        border border-gray-200/70
                         shadow-md transition-all duration-300
                         group-hover/card:shadow-xl group-hover/card:-translate-y-0.5 overflow-hidden">
 
@@ -65,7 +65,7 @@
               </template>
 
               <div class="p-5" x-data="{ openFeat:false }">
-                <h3 class="font-semibold text-gray-900 dark:text-white" x-text="p.name"></h3>
+                <h3 class="font-semibold text-gray-900" x-text="p.name"></h3>
 
                 {{-- price block --}}
                 <div class="mt-2">
@@ -73,17 +73,17 @@
                     <span class="text-xs line-through text-gray-400" x-text="'US$ ' + p.rack.toFixed(2)"></span>
                     <template x-if="savePercent(p) > 0">
                       <span class="text-[10px] font-semibold px-2 py-0.5 rounded-full
-                                   bg-indigo-100 text-indigo-700 dark:bg-indigo-500/15 dark:text-indigo-300"
+                                   bg-indigo-100 text-indigo-700"
                             x-text="'Save ' + savePercent(p) + '%'"></span>
                     </template>
                   </div>
                   <div class="mt-1 flex items-end gap-2">
-                    <div class="text-3xl font-extrabold text-gray-900 dark:text-white">
+                    <div class="text-3xl font-extrabold text-gray-900">
                       US$ <span x-text="perMonth(p).toFixed(2)"></span>
                     </div>
-                    <span class="text-sm text-gray-500 dark:text-gray-400">/mo</span>
+                    <span class="text-sm text-gray-500">/mo</span>
                   </div>
-                  <div class="text-[11px] text-gray-500 dark:text-gray-400">Price per mailbox</div>
+                  <div class="text-[11px] text-gray-500">Price per mailbox</div>
                 </div>
 
                 {{-- CTA => open modal --}}
@@ -95,12 +95,12 @@
                   Get started
                 </button>
 
-                <div class="mt-2 text-[11px] text-gray-500 dark:text-gray-400 space-y-0.5">
+                <div class="mt-2 text-[11px] text-gray-500 space-y-0.5">
                   <div>US$ <span x-text="p.rack.toFixed(2)"></span>/mo when you renew</div>
                   <div>*Price applies when purchasing for <span x-text="monthsLabel"></span>.</div>
                 </div>
 
-                <div class="my-4 border-t border-gray-200/70 dark:border-slate-800/70"></div>
+                <div class="my-4 border-t border-gray-200/70"></div>
 
                 {{-- Features (collapsible) --}}
                 <div class="relative transition-all" :class="openFeat? '' : 'max-h-40 overflow-hidden'">
@@ -110,16 +110,16 @@
                         <svg class="h-4 w-4 text-emerald-500 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                           <path stroke-linecap="round" stroke-linejoin="round" d="m5 13 4 4L19 7"/>
                         </svg>
-                        <span class="text-gray-700 dark:text-slate-200" x-text="f"></span>
+                        <span class="text-gray-700" x-text="f"></span>
                       </li>
                     </template>
                   </ul>
                   <div x-show="!openFeat" class="pointer-events-none absolute inset-x-0 bottom-0 h-10
-                                               bg-gradient-to-t from-white/95 dark:from-[#0b1220]/95 to-transparent"></div>
+                                               bg-gradient-to-t from-white/95 to-transparent"></div>
                 </div>
 
                 <button @click.prevent="openFeat=!openFeat"
-                        class="mt-4 inline-flex items-center gap-1 text-xs font-medium text-indigo-600 dark:text-indigo-400 hover:underline">
+                        class="mt-4 inline-flex items-center gap-1 text-xs font-medium text-indigo-600 hover:underline">
                   <svg x-show="!openFeat" class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 5v14m7-7H5"/>
                   </svg>
@@ -137,20 +137,20 @@
     </div>
 
     {{-- Trust strip --}}
-    <div class="reveal mt-8 rounded-xl border border-gray-200 dark:border-slate-800 bg-white dark:bg-[#0b1220] p-4 sm:p-6">
+    <div class="reveal mt-8 rounded-xl border border-gray-200 bg-white p-4 sm:p-6">
       <div class="grid md:grid-cols-4 gap-6 items-center text-sm">
-        <div class="text-gray-700 dark:text-slate-200">99.9% uptime SLA</div>
-        <div class="text-gray-600 dark:text-gray-300">Free SSL & advanced anti‑spam</div>
-        <div class="text-gray-600 dark:text-gray-300">Easy migration & aliases</div>
-        <div class="text-gray-600 dark:text-gray-300">24/7 expert support</div>
+        <div class="text-gray-700">99.9% uptime SLA</div>
+        <div class="text-gray-600">Free SSL & advanced anti‑spam</div>
+        <div class="text-gray-600">Easy migration & aliases</div>
+        <div class="text-gray-600">24/7 expert support</div>
       </div>
     </div>
 
     {{-- FAQ --}}
     <div class="reveal mt-14">
       <div class="mx-auto max-w-7xl">
-        <h2 class="text-center text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Email Plan FAQ</h2>
-        <p class="mt-2 text-center text-sm text-gray-600 dark:text-gray-300">Short, clear answers to the most common questions.</p>
+        <h2 class="text-center text-2xl font-bold tracking-tight text-gray-900">Email Plan FAQ</h2>
+        <p class="mt-2 text-center text-sm text-gray-600">Short, clear answers to the most common questions.</p>
 
         @php
           $faqs = [
@@ -161,22 +161,22 @@
           ];
         @endphp
 
-        <div class="mt-6 rounded-xl border border-gray-200/70 dark:border-slate-800/70 bg-white/90 dark:bg-[#0b1220]/90 backdrop-blur-sm shadow-sm">
+        <div class="mt-6 rounded-xl border border-gray-200/70 bg-white/90 backdrop-blur-sm shadow-sm">
           @foreach ($faqs as $f)
-            <details class="group border-b border-gray-200/70 dark:border-slate-800/70 last:border-0">
+            <details class="group border-b border-gray-200/70 last:border-0">
               <summary class="flex items-start gap-3 px-5 sm:px-6 py-4 cursor-pointer select-none
-                              hover:bg-gray-50/80 dark:hover:bg-slate-900/60
-                              group-open:bg-indigo-50/40 dark:group-open:bg-indigo-500/5">
+                              hover:bg-gray-50/80
+                              group-open:bg-indigo-50/40">
                 <span class="mt-0.5 inline-grid place-items-center h-7 w-7 rounded-full
-                             bg-indigo-50 text-indigo-700 dark:bg-indigo-500/10 dark:text-indigo-300">
+                             bg-indigo-50 text-indigo-700">
                   <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M8 10a4 4 0 1 1 8 0c0 3-4 3-4 6m0 4h.01"/>
                   </svg>
                 </span>
-                <span class="flex-1 font-medium text-gray-900 dark:text-white">{{ $f['q'] }}</span>
+                <span class="flex-1 font-medium text-gray-900">{{ $f['q'] }}</span>
                 <span class="ml-3 shrink-0 grid place-items-center h-6 w-6 rounded-full
-                             border border-gray-300/70 dark:border-slate-700/70
-                             text-gray-600 dark:text-slate-300 transition-transform group-open:rotate-180">
+                             border border-gray-300/70
+                             text-gray-600 transition-transform group-open:rotate-180">
                   <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="m6 9 6 6 6-6"/>
                   </svg>
@@ -184,15 +184,15 @@
               </summary>
               <div class="px-5 sm:px-6 pb-4 pt-0 grid transition-all duration-300 ease-out grid-rows-[0fr] group-open:grid-rows-[1fr]">
                 <div class="overflow-hidden">
-                  <p class="text-sm leading-relaxed text-gray-600 dark:text-gray-300">{{ $f['a'] }}</p>
+                  <p class="text-sm leading-relaxed text-gray-600">{{ $f['a'] }}</p>
                 </div>
               </div>
             </details>
           @endforeach
         </div>
 
-        <div class="mt-5 text-center text-xs text-gray-500 dark:text-gray-400">
-          Still need help? <a href="#" class="text-indigo-600 dark:text-indigo-400 hover:underline">Talk to sales</a>
+        <div class="mt-5 text-center text-xs text-gray-500">
+          Still need help? <a href="#" class="text-indigo-600 hover:underline">Talk to sales</a>
         </div>
       </div>
     </div>
@@ -213,24 +213,24 @@
            x-transition:leave-end="opacity-0 translate-y-2 scale-[0.98]"
            role="dialog" aria-modal="true"
            class="relative w-full max-w-3xl max-h-[82vh] overflow-y-auto
-                  rounded-2xl border border-gray-200 dark:border-slate-800
-                  bg-white dark:bg-[#0b1220] shadow-2xl ring-1 ring-black/5 dark:ring-white/5">
+                  rounded-2xl border border-gray-200
+                  bg-white shadow-2xl ring-1 ring-black/5">
 
         {{-- Header --}}
-        <div class="sticky top-0 z-10 px-5 sm:px-6 py-4 border-b border-gray-200 dark:border-slate-800
-                    bg-white/95 dark:bg-[#0b1220]/95 backdrop-blur flex items-start gap-3">
+        <div class="sticky top-0 z-10 px-5 sm:px-6 py-4 border-b border-gray-200
+                    bg-white/95 backdrop-blur flex items-start gap-3">
           <div class="flex-1">
-            <h3 class="text-lg font-semibold text-gray-900 dark:text-white" x-text="checkout.plan?.name || ''"></h3>
-            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Choose a billing period and finish the checkout</p>
+            <h3 class="text-lg font-semibold text-gray-900" x-text="checkout.plan?.name || ''"></h3>
+            <p class="text-xs text-gray-500 mt-1">Choose a billing period and finish the checkout</p>
           </div>
 
           {{-- per-account/mo chip --}}
           <span class="shrink-0 inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-semibold
-                       bg-gray-100 text-gray-700 dark:bg-slate-800 dark:text-slate-200">
+                       bg-gray-100 text-gray-700">
             <span x-text="'US$ ' + selectedPerMonth().toFixed(2) + '/account/mo'"></span>
           </span>
 
-          <button class="ml-2 shrink-0 p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-slate-800"
+          <button class="ml-2 shrink-0 p-2 rounded-lg hover:bg-gray-100"
                   @click="closeCheckout()" aria-label="Close">
             <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12"/>
@@ -245,26 +245,26 @@
           <div class="space-y-3">
             <template x-for="opt in checkout.options" :key="opt.months">
               <label class="block rounded-xl border-2 cursor-pointer transition
-                            border-gray-200 dark:border-slate-800 hover:border-indigo-300 dark:hover:border-indigo-500/50
-                            hover:bg-gray-50/60 dark:hover:bg-slate-900/40"
-                     :class="checkout.months===opt.months ? 'border-indigo-500 ring-2 ring-indigo-400/30 bg-indigo-50/40 dark:bg-indigo-500/5' : ''">
+                            border-gray-200 hover:border-indigo-300
+                            hover:bg-gray-50/60"
+                     :class="checkout.months===opt.months ? 'border-indigo-500 ring-2 ring-indigo-400/30 bg-indigo-50/40' : ''">
                 <div class="flex items-center gap-3 p-3">
                   <input type="radio" class="accent-indigo-600" :value="opt.months" x-model.number="checkout.months">
                   <div class="flex-1">
                     <div class="flex items-center gap-3">
-                      <span class="text-sm text-gray-900 dark:text-white" x-text="opt.months + ' months'"></span>
+                      <span class="text-sm text-gray-900" x-text="opt.months + ' months'"></span>
                       <template x-if="opt.save>0">
                         <span class="text-[10px] font-semibold px-2 py-0.5 rounded-full
-                                     bg-indigo-100 text-indigo-700 dark:bg-indigo-500/15 dark:text-indigo-300"
+                                     bg-indigo-100 text-indigo-700"
                               x-text="'SAVE ' + Math.round(opt.save) + '%'"></span>
                       </template>
                     </div>
                   </div>
                   <div class="text-right min-w-[140px]">
                     <div class="text-xs line-through text-gray-400" x-text="'US$ ' + opt.rack.toFixed(2)"></div>
-                    <div class="inline-flex items-center gap-1 text-sm font-semibold text-gray-900 dark:text-white">
+                    <div class="inline-flex items-center gap-1 text-sm font-semibold text-gray-900">
                       <span x-text="'US$ ' + opt.perMonth.toFixed(2)"></span>
-                      <span class="text-[11px] text-gray-500 dark:text-gray-400">/mailbox/mo</span>
+                      <span class="text-[11px] text-gray-500">/mailbox/mo</span>
                     </div>
                   </div>
                 </div>
@@ -273,16 +273,16 @@
           </div>
 
           {{-- Quantity --}}
-          <div class="mt-1 rounded-xl border border-gray-200 dark:border-slate-800 p-3">
+          <div class="mt-1 rounded-xl border border-gray-200 p-3">
             <div class="flex items-center justify-between">
-              <span class="text-sm text-gray-800 dark:text-slate-100">Need more mailboxes?</span>
+              <span class="text-sm text-gray-800">Need more mailboxes?</span>
               <div class="inline-flex items-center gap-2">
                 <button @click="dec()" class="h-9 w-9 grid place-items-center rounded-lg
                                      bg-gray-100 hover:bg-gray-200 text-gray-900
-                                     dark:bg-slate-800 dark:hover:bg-slate-700 dark:text-slate-100">−</button>
+                                    ">−</button>
                 <input type="number" min="1" x-model.number="checkout.qty"
-                       class="h-9 w-14 text-center rounded-lg border border-gray-200 dark:border-slate-700
-                              bg-white dark:bg-[#0b1220] text-gray-900 dark:text-white"/>
+                       class="h-9 w-14 text-center rounded-lg border border-gray-200
+                              bg-white text-gray-900"/>
                 <button @click="inc()" class="h-9 w-9 grid place-items-center rounded-lg
                                      bg-indigo-600 hover:bg-indigo-700 text-white">+</button>
               </div>
@@ -290,38 +290,38 @@
           </div>
 
           {{-- Totals --}}
-          <div class="rounded-xl border border-gray-200 dark:border-slate-800 divide-y divide-gray-200 dark:divide-slate-800">
+          <div class="rounded-xl border border-gray-200 divide-y divide-gray-200">
             <div class="flex items-center justify-between px-3 py-2 text-sm">
-              <span class="text-gray-600 dark:text-gray-300">Total</span>
-              <span class="text-gray-900 dark:text-white" x-text="'US$ ' + subtotal().toFixed(2)"></span>
+              <span class="text-gray-600">Total</span>
+              <span class="text-gray-900" x-text="'US$ ' + subtotal().toFixed(2)"></span>
             </div>
             <div class="flex items-center justify-between px-3 py-2 text-sm">
-              <span class="text-gray-600 dark:text-gray-300">Plan name</span>
-              <span class="text-gray-900 dark:text-white" x-text="checkout.plan?.name || ''"></span>
+              <span class="text-gray-600">Plan name</span>
+              <span class="text-gray-900" x-text="checkout.plan?.name || ''"></span>
             </div>
             <div class="flex items-center justify-between px-3 py-2 text-sm">
-              <span class="text-gray-600 dark:text-gray-300">Coupon code
-                <a href="#" class="text-indigo-600 dark:text-indigo-400 hover:underline">Add</a>
+              <span class="text-gray-600">Coupon code
+                <a href="#" class="text-indigo-600 hover:underline">Add</a>
               </span>
-              <span class="text-gray-900 dark:text-white"></span>
+              <span class="text-gray-900"></span>
             </div>
           </div>
 
           {{-- Footer --}}
-          <div class="sticky bottom-0 bg-white/95 dark:bg-[#0b1220]/95 backdrop-blur
+          <div class="sticky bottom-0 bg-white/95 backdrop-blur
                       -mx-5 sm:-mx-6 px-5 sm:px-6 pt-3 pb-4 flex items-center justify-end gap-3">
             <button class="px-4 h-10 rounded-xl text-sm bg-gray-100 hover:bg-gray-200 text-gray-900
-                           dark:bg-slate-800 dark:hover:bg-slate-700 dark:text-slate-100"
+                          "
                     @click="closeCheckout()">Cancel</button>
             <button class="px-4 h-10 rounded-xl text-sm text-white shadow
                            bg-gradient-to-r from-indigo-600 to-fuchsia-600 hover:from-indigo-700 hover:to-fuchsia-700"
                     @click="goToPayment()">Choose payment method</button>
           </div>
 
-          <p class="text-[11px] text-gray-500 dark:text-gray-400">
+          <p class="text-[11px] text-gray-500">
             By checking out, you agree with our Terms of Service and Privacy Policy. You can cancel recurring payments any time.
           </p>
-          <p class="text-[11px] text-gray-500 dark:text-gray-400">
+          <p class="text-[11px] text-gray-500">
             Plan renews for <span x-text="'US$ ' + renewPrice().toFixed(2) + ' /mo'"></span>.
           </p>
         </div>

@@ -50,7 +50,7 @@
 
 
 
-        <div class="min-h-[88vh] pb-2 bg-gradient-to-b from-white to-gray-50 dark:from-gray-950 dark:to-gray-900">
+        <div class="min-h-[88vh] pb-2 bg-gradient-to-b from-white to-gray-50">
             <!-- HERO -->
             <div class="relative overflow-hidden">
                 <!-- subtle blobs -->
@@ -68,16 +68,16 @@
                         <div class="reveal">
                             <span
                                 class="inline-flex items-center gap-2 text-xs font-semibold px-2.5 py-1.5 rounded-full
-                           bg-indigo-50 text-indigo-700 dark:bg-indigo-500/10 dark:text-indigo-300 border border-indigo-100 dark:border-indigo-800">
+                           bg-indigo-50 text-indigo-700 border border-indigo-100">
                                 NEW <span class="opacity-70">Build in minutes</span>
                             </span>
                             <h1
-                                class="mt-4 text-3xl md:text-5xl font-bold tracking-tight text-gray-900 dark:text-white">
+                                class="mt-4 text-3xl md:text-5xl font-bold tracking-tight text-gray-900">
                                 Go from idea to a <span
                                     class="bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-fuchsia-600">web
                                     app</span> in minutes
                             </h1>
-                            <p class="mt-4 text-gray-600 dark:text-gray-300 max-w-xl">
+                            <p class="mt-4 text-gray-600 max-w-xl">
                                 Chat with AI to scaffold your site fast—no code needed. Clean UI, blazing speed, and
                                 delightful touches.
                             </p>
@@ -90,19 +90,19 @@
                                 </a>
                                 <a href="#domain"
                                     class="inline-flex justify-center items-center px-5 py-3 rounded-xl
-                          bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800
-                          text-gray-800 dark:text-gray-200 hover:shadow">
+                          bg-white border border-gray-200
+                          text-gray-800 hover:shadow">
                                     Explore features
                                 </a>
                             </div>
 
-                            <div class="mt-6 flex items-center gap-6 text-sm text-gray-500 dark:text-gray-400">
+                            <div class="mt-6 flex items-center gap-6 text-sm text-gray-500">
                                 <div class="flex -space-x-2">
-                                    <img class="h-8 w-8 rounded-full ring-2 ring-white dark:ring-gray-900"
+                                    <img class="h-8 w-8 rounded-full ring-2 ring-white"
                                         src="https://i.pravatar.cc/64?img=12" alt="">
-                                    <img class="h-8 w-8 rounded-full ring-2 ring-white dark:ring-gray-900"
+                                    <img class="h-8 w-8 rounded-full ring-2 ring-white"
                                         src="https://i.pravatar.cc/64?img=5" alt="">
-                                    <img class="h-8 w-8 rounded-full ring-2 ring-white dark:ring-gray-900"
+                                    <img class="h-8 w-8 rounded-full ring-2 ring-white"
                                         src="https://i.pravatar.cc/64?img=9" alt="">
                                 </div>
                                 <span>10k+ happy builders</span>
@@ -115,8 +115,8 @@
                         <!-- Preview Card -->
                         <div class="reveal">
                             <div
-                                class="relative rounded-2xl border border-gray-200 dark:border-gray-800
-              bg-white/70 dark:bg-gray-900/70 backdrop-blur p-4 md:p-6 mb-5 sm:mb-5 md:mb-5 shadow-xl
+                                class="relative rounded-2xl border border-gray-200
+              bg-white/70 backdrop-blur p-4 md:p-6 mb-5 sm:mb-5 md:mb-5 shadow-xl
               overflow-hidden">
                                 <!-- ← যোগ করুন -->
 
@@ -125,10 +125,10 @@
 
                                 <!-- ভেতরের কোণায় রাখুন -->
                                 <div
-                                    class="absolute bottom-4 left-4 bg-white dark:bg-gray-900
-                border border-gray-200 dark:border-gray-800 rounded-xl shadow
+                                    class="absolute bottom-4 left-4 bg-white
+                border border-gray-200 rounded-xl shadow
                 p-3 w-52">
-                                    <div class="text-xs text-gray-500 dark:text-gray-400">Live components</div>
+                                    <div class="text-xs text-gray-500">Live components</div>
                                     <div
                                         class="mt-1 h-2.5 w-40 bg-gradient-to-r from-indigo-500 to-fuchsia-500 rounded-full animate-pulse">
                                     </div>
@@ -146,20 +146,20 @@
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div class="grid lg:grid-cols-3 gap-6">
                         <div
-                            class="lg:col-span-2 rounded-2xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 p-6 shadow hover:shadow-lg transition">
+                            class="lg:col-span-2 rounded-2xl bg-white border border-gray-200 p-6 shadow hover:shadow-lg transition">
                             <div class="flex items-center justify-between gap-6 flex-wrap">
                                 <div>
-                                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Website Builder &
+                                    <h3 class="text-lg font-semibold text-gray-900">Website Builder &
                                         Web Hosting</h3>
-                                    <p class="text-sm text-gray-600 dark:text-gray-300 mt-1">Get your site online
+                                    <p class="text-sm text-gray-600 mt-1">Get your site online
                                         quickly.</p>
                                 </div>
                                 <div class="text-right">
-                                    <div class="text-3xl md:text-4xl font-extrabold text-gray-900 dark:text-white">
+                                    <div class="text-3xl md:text-4xl font-extrabold text-gray-900">
                                         US$ 2.99<span
-                                            class="text-base font-medium text-gray-500 dark:text-gray-400">/mo</span>
+                                            class="text-base font-medium text-gray-500">/mo</span>
                                     </div>
-                                    <div class="text-xs text-gray-500 dark:text-gray-400">Renews at US$ 10.99/mo</div>
+                                    <div class="text-xs text-gray-500">Renews at US$ 10.99/mo</div>
                                 </div>
                             </div>
                             <div class="mt-6">
@@ -188,19 +188,19 @@
             <section id="domain" class="reveal py-14">
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div
-                        class="rounded-2xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 p-6 shadow">
+                        class="rounded-2xl bg-white border border-gray-200 p-6 shadow">
                         <div class="flex items-center justify-between gap-4 flex-wrap">
                             <div>
-                                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Start with a domain name
+                                <h3 class="text-lg font-semibold text-gray-900">Start with a domain name
                                 </h3>
-                                <p class="text-sm text-gray-600 dark:text-gray-300">Find the perfect domain instantly.
+                                <p class="text-sm text-gray-600">Find the perfect domain instantly.
                                 </p>
                             </div>
                             <form class="flex-1 min-w-[260px]" @submit.prevent>
                                 <div
-                                    class="flex rounded-xl border border-gray-200 dark:border-gray-800 overflow-hidden">
+                                    class="flex rounded-xl border border-gray-200 overflow-hidden">
                                     <input type="text" placeholder="Enter your desired domain"
-                                        class="w-full px-4 py-3 bg-transparent focus:outline-none text-gray-800 dark:text-gray-100 placeholder-gray-400">
+                                        class="w-full px-4 py-3 bg-transparent focus:outline-none text-gray-800 placeholder-gray-400">
                                     <button @pointerdown="ripple($event)"
                                         class="ripple px-5 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold">
                                         Search
@@ -208,10 +208,10 @@
                                 </div>
                             </form>
                         </div>
-                        <div class="mt-4 text-sm text-gray-500 dark:text-gray-400">
+                        <div class="mt-4 text-sm text-gray-500">
                             Already have a domain? <a href="#"
-                                class="text-indigo-600 dark:text-indigo-400 hover:underline">Transfer it</a>
-                            or <a href="#" class="text-indigo-600 dark:text-indigo-400 hover:underline">connect
+                                class="text-indigo-600 hover:underline">Transfer it</a>
+                            or <a href="#" class="text-indigo-600 hover:underline">connect
                                 hosting</a>.
                         </div>
                     </div>
@@ -243,10 +243,10 @@
                         @endphp
                         @foreach ($features as $f)
                             <div
-                                class="group rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 p-6 shadow hover:shadow-xl transition will-change-transform hover:-translate-y-0.5">
+                                class="group rounded-2xl border border-gray-200 bg-white p-6 shadow hover:shadow-xl transition will-change-transform hover:-translate-y-0.5">
                                 <div class="text-3xl">{{ $f['icon'] }}</div>
-                                <h4 class="mt-3 font-semibold text-gray-900 dark:text-white">{{ $f['title'] }}</h4>
-                                <p class="mt-2 text-sm text-gray-600 dark:text-gray-300">{{ $f['desc'] }}</p>
+                                <h4 class="mt-3 font-semibold text-gray-900">{{ $f['title'] }}</h4>
+                                <p class="mt-2 text-sm text-gray-600">{{ $f['desc'] }}</p>
                                 <div
                                     class="mt-4 h-1 w-0 group-hover:w-full transition-all bg-gradient-to-r from-indigo-500 to-fuchsia-500 rounded-full">
                                 </div>

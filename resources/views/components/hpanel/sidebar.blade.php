@@ -21,17 +21,17 @@ window.addEventListener('close-sidebar', () => { open = false });">
     {{-- Sidebar panel --}}
     <nav class="fixed z-50 inset-y-0 left-0 top-16
               w-72 lg:w-64 transform transition-transform duration-200
-              bg-white/90 dark:bg-[#0f172a]/95 backdrop-blur
-              border-r border-gray-200 dark:border-slate-800
-              text-gray-900 dark:text-slate-200
+              bg-white/90 backdrop-blur
+              border-r border-gray-200
+              text-gray-900
               flex flex-col"
         :class="{ '-translate-x-full': !open }" @keydown.escape.window="open=false">
 
         {{-- Mobile top bar (h-12 = 3rem) --}}
         <div
-            class="lg:hidden flex items-center justify-between px-3 h-12 border-b border-gray-200 dark:border-slate-800 shrink-0">
+            class="lg:hidden flex items-center justify-between px-3 h-12 border-b border-gray-200 shrink-0">
             <span class="font-semibold text-sm">Navigation</span>
-            <button @click="open=false" class="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-slate-800"
+            <button @click="open=false" class="p-2 rounded-lg hover:bg-gray-100"
                 aria-label="Close sidebar">
                 <i data-lucide="x" class="h-4 w-4"></i>
             </button>
@@ -47,10 +47,10 @@ window.addEventListener('close-sidebar', () => { open = false });">
 
                 <div
                     class="group flex items-center gap-2 h-10 lg:h-11 px-3 rounded-xl lg:rounded-2xl
-           bg-gray-50 dark:bg-white/5
-            border border-gray-200 dark:border-slate-700/60
-           text-gray-700 dark:text-slate-100
-            dark:shadow-[inset_0_0_0_1px_rgba(148,163,184,0.06)]
+           bg-gray-50
+            border border-gray-200
+           text-gray-700
+           
            transition
            focus-within:ring-2 focus-within:ring-indigo-400/40">
 
@@ -58,14 +58,14 @@ window.addEventListener('close-sidebar', () => { open = false });">
 
                     <input type="text" placeholder="Search menu…"
                         class="flex-1 bg-transparent outline-none text-sm
-                  text-gray-900 dark:text-slate-100
-                  placeholder-gray-400 dark:placeholder-slate-400" />
+                  text-gray-900
+                  placeholder-gray-400" />
 
                     {{-- desktop hint (optional) --}}
                     <kbd
                         class="hidden lg:inline ml-2 text-[10px] px-1 py-0.5 rounded
-               border border-gray-300/60 dark:border-slate-700/70
-               text-gray-500 dark:text-slate-400">/</kbd>
+               border border-gray-300/60
+               text-gray-500">/</kbd>
                 </div>
             </div>
 
@@ -127,8 +127,8 @@ window.addEventListener('close-sidebar', () => { open = false });">
                         $hasChildren = isset($i['children']);
 
                         $activeClass = $active
-                            ? 'bg-indigo-500/10 dark:bg-indigo-400/10 text-indigo-700 dark:text-indigo-200
-                 border border-indigo-200/60 dark:border-indigo-400/20
+                            ? 'bg-indigo-500/10 text-indigo-700
+                 border border-indigo-200/60
                  relative before:absolute before:left-0 before:top-1.5 before:h-7 before:w-1.5
                  before:rounded-full before:bg-indigo-500 before:dark:bg-indigo-400'
                             : 'border border-transparent';
@@ -137,13 +137,13 @@ window.addEventListener('close-sidebar', () => { open = false });">
                     <li x-data="{ openItem: {{ $hasChildren && $active ? 'true' : 'false' }} }">
                         <a href="{{ $i['to'] }}"
                             class="group flex items-center gap-3 h-10 px-3 rounded-xl
-                      hover:bg-gray-100 dark:hover:bg-slate-800/80 {{ $activeClass }}">
+                      hover:bg-gray-100 {{ $activeClass }}">
                             <i data-lucide="{{ $i['icon'] }}" class="h-5 w-5 opacity-75"></i>
                             <span class="flex-1 truncate">{{ $i['label'] }}</span>
 
                             @if ($hasChildren)
                                 <button type="button" @click.prevent="openItem = !openItem"
-                                    class="p-1 rounded-md hover:bg-gray-200/60 dark:hover:bg-slate-700/60
+                                    class="p-1 rounded-md hover:bg-gray-200/60
                                focus:outline-none focus:ring-2 focus:ring-indigo-400/50">
                                     <i x-show="!openItem" data-lucide="chevron-down" class="h-4 w-4"></i>
                                     <i x-show="openItem" data-lucide="chevron-up" class="h-4 w-4"></i>
@@ -155,12 +155,12 @@ window.addEventListener('close-sidebar', () => { open = false });">
                             {{-- শুধু সাবমেনু স্ক্রলযোগ্য --}}
                             <ul x-show="openItem" x-collapse
                                 class="ml-10 my-1 space-y-1 max-h-64 overflow-y-auto pr-1 sub-scroll
-                         rounded-md bg-gray-50/70 dark:bg-slate-800/40 border border-gray-200 dark:border-slate-700/60">
+                         rounded-md bg-gray-50/70 border border-gray-200">
                                 @foreach ($i['children'] as $c)
                                     <li>
                                         <a href="{{ $c['to'] }}" @click="$dispatch('close-sidebar')"
                                             class="block px-3 py-2 rounded-lg
-                              hover:bg-white/70 dark:hover:bg-slate-800
+                              hover:bg-white/70
                               focus:outline-none focus:ring-2 focus:ring-indigo-400/40">
                                             {{ $c['label'] }}
                                         </a>

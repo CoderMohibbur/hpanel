@@ -5,10 +5,10 @@
 
             {{-- Header + breadcrumb --}}
             <div class="mb-5">
-                <h1 class="text-xl sm:text-2xl font-semibold text-gray-900 dark:text-white">Get a New Domain</h1>
-                <div class="mt-1 flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
+                <h1 class="text-xl sm:text-2xl font-semibold text-gray-900">Get a New Domain</h1>
+                <div class="mt-1 flex items-center gap-2 text-sm text-gray-500">
                     <a href="{{ route('domains.index') }}"
-                        class="inline-flex items-center gap-1 hover:text-gray-700 dark:hover:text-slate-200">
+                        class="inline-flex items-center gap-1 hover:text-gray-700">
                         <i data-lucide="arrow-left" class="h-4 w-4"></i> Back to portfolio
                     </a>
                 </div>
@@ -17,14 +17,14 @@
             {{-- Segmented tabs --}}
             <div class="mx-auto w-full sm:w-auto">
                 <div
-                    class="inline-flex rounded-2xl border border-gray-200 dark:border-slate-800 bg-white dark:bg-[#0b1220] p-1 relative">
+                    class="inline-flex rounded-2xl border border-gray-200 bg-white p-1 relative">
                     <button @click="tab='find'" class="px-4 sm:px-5 h-10 rounded-xl text-sm font-medium transition"
-                        :class="tab === 'find' ? 'bg-indigo-600 text-white shadow' : 'text-gray-700 dark:text-slate-200'">
+                        :class="tab === 'find' ? 'bg-indigo-600 text-white shadow' : 'text-gray-700'">
                         Find new domain
                     </button>
                     <button @click="tab='ai'"
                         class="px-4 sm:px-5 h-10 rounded-xl text-sm font-medium transition relative"
-                        :class="tab === 'ai' ? 'bg-indigo-600 text-white shadow' : 'text-gray-700 dark:text-slate-200'">
+                        :class="tab === 'ai' ? 'bg-indigo-600 text-white shadow' : 'text-gray-700'">
                         <span class="mr-1">✨</span> Generate domain using AI
                         {{-- pink ping dot (subtle) --}}
                         <span class="absolute -top-1 -right-1 inline-flex h-2.5 w-2.5">
@@ -38,20 +38,20 @@
 
             {{-- Card: search / AI --}}
             <div
-                class="mt-4 rounded-2xl border border-gray-200 dark:border-slate-800 bg-white dark:bg-[#0b1220] p-4 sm:p-6">
+                class="mt-4 rounded-2xl border border-gray-200 bg-white p-4 sm:p-6">
                 {{-- FIND tab --}}
                 <form x-show="tab==='find'" x-transition method="GET" action="{{ route('domains.register') }}"
                     class="space-y-4">
                     <div class="flex flex-col sm:flex-row gap-3">
                         <div
                             class="flex-1 flex items-center gap-2 h-12 px-3 rounded-xl
-                      bg-gray-50 dark:bg-slate-800/80
-                      border border-gray-200 dark:border-slate-700">
+                      bg-gray-50
+                      border border-gray-200">
                             <i data-lucide="search" class="h-5 w-5 opacity-80"></i>
                             <input name="q" value="{{ $q ?? '' }}" x-ref="qinput" type="text"
                                 placeholder="Enter your desired domain (e.g. mybrand)"
-                                class="flex-1 bg-transparent outline-none text-sm text-gray-800 dark:text-slate-100
-                          placeholder-gray-400 dark:placeholder-slate-400">
+                                class="flex-1 bg-transparent outline-none text-sm text-gray-800
+                          placeholder-gray-400">
                         </div>
                         <button
                             class="h-12 px-5 rounded-xl text-sm font-semibold text-white
@@ -76,28 +76,28 @@
                         @foreach ($tlds as [$t, $price])
                             <button type="button" @click="appendTld('{{ $t }}')"
                                 class="flex items-center justify-between px-3 py-2 rounded-xl border
-                     border-gray-200 dark:border-slate-700 bg-gray-50 dark:bg-slate-900/40
-                     text-gray-800 dark:text-slate-200 hover:bg-gray-100 dark:hover:bg-slate-800 transition">
+                     border-gray-200 bg-gray-50
+                     text-gray-800 hover:bg-gray-100 transition">
                                 <span class="font-semibold">{{ $t }}</span>
-                                <span class="text-xs text-gray-500 dark:text-gray-400">{{ $price }}</span>
+                                <span class="text-xs text-gray-500">{{ $price }}</span>
                             </button>
                         @endforeach
                     </div>
 
-                    <p class="text-xs text-gray-500 dark:text-gray-400">Type your desired domain name to check instant
+                    <p class="text-xs text-gray-500">Type your desired domain name to check instant
                         availability.</p>
                 </form>
 
                 {{-- AI tab --}}
                 <div x-show="tab==='ai'" x-transition class="space-y-4">
                     <div
-                        class="rounded-xl border border-gray-200 dark:border-slate-700 bg-gray-50 dark:bg-slate-900/40 p-3">
-                        <label class="text-sm text-gray-600 dark:text-gray-300">Describe your brand / niche</label>
+                        class="rounded-xl border border-gray-200 bg-gray-50 p-3">
+                        <label class="text-sm text-gray-600">Describe your brand / niche</label>
                         <textarea x-model="prompt" rows="3" placeholder="e.g. Minimal clothing brand for eco-conscious Gen-Z"
-                            class="mt-2 w-full rounded-lg bg-white dark:bg-[#0b1220] border border-gray-200 dark:border-slate-700
-                           text-sm text-gray-800 dark:text-slate-100 outline-none p-3"></textarea>
+                            class="mt-2 w-full rounded-lg bg-white border border-gray-200
+                           text-sm text-gray-800 outline-none p-3"></textarea>
                         <div class="mt-3 flex items-center justify-between">
-                            <div class="text-xs text-gray-500 dark:text-gray-400">We’ll suggest short, brandable .com
+                            <div class="text-xs text-gray-500">We’ll suggest short, brandable .com
                                 and alternates.</div>
                             <div class="flex items-center gap-2">
                                 <button @click="generate()"
@@ -107,7 +107,7 @@
                                 </button>
                                 <button @click="takeFirst()"
                                     class="h-10 px-3 rounded-xl text-sm font-semibold
-                                    bg-gray-100 dark:bg-slate-800 text-gray-800 dark:text-slate-200">
+                                    bg-gray-100 text-gray-800">
                                     Use first idea
                                 </button>
                             </div>
@@ -118,10 +118,10 @@
                     <div x-show="suggestions.length" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
                         <template x-for="s in suggestions" :key="s">
                             <button @click="fillAndSearch(s)"
-                                class="text-left px-3 py-3 rounded-xl border border-gray-200 dark:border-slate-700
-                           bg-white dark:bg-[#0b1220] hover:bg-gray-50 dark:hover:bg-slate-800 transition">
-                                <div class="font-medium text-gray-900 dark:text-white" x-text="s + '.com'"></div>
-                                <div class="text-xs text-gray-500 dark:text-gray-400">Tap to search availability</div>
+                                class="text-left px-3 py-3 rounded-xl border border-gray-200
+                           bg-white hover:bg-gray-50 transition">
+                                <div class="font-medium text-gray-900" x-text="s + '.com'"></div>
+                                <div class="text-xs text-gray-500">Tap to search availability</div>
                             </button>
                         </template>
                     </div>
@@ -131,50 +131,50 @@
             {{-- Results --}}
             @if (!empty($q))
                 <div
-                    class="mt-6 rounded-2xl border border-gray-200 dark:border-slate-800 bg-white dark:bg-[#0b1220] overflow-hidden">
+                    class="mt-6 rounded-2xl border border-gray-200 bg-white overflow-hidden">
                     <div
-                        class="px-4 sm:px-6 py-4 border-b border-gray-200 dark:border-slate-800 flex items-center justify-between">
-                        <div class="text-sm text-gray-600 dark:text-gray-300">
+                        class="px-4 sm:px-6 py-4 border-b border-gray-200 flex items-center justify-between">
+                        <div class="text-sm text-gray-600">
                             Results for: <span
-                                class="font-semibold text-gray-900 dark:text-white">{{ $q }}</span>
+                                class="font-semibold text-gray-900">{{ $q }}</span>
                         </div>
-                        <div class="hidden sm:block text-xs text-gray-500 dark:text-gray-400">Prices shown for the first
+                        <div class="hidden sm:block text-xs text-gray-500">Prices shown for the first
                             year.</div>
                     </div>
 
                     @if (empty($results))
-                        <div class="px-6 py-10 text-center text-sm text-gray-600 dark:text-gray-300">No matches found.
+                        <div class="px-6 py-10 text-center text-sm text-gray-600">No matches found.
                             Try another name or a different TLD.</div>
                     @else
-                        <ul class="divide-y divide-gray-200 dark:divide-slate-800">
+                        <ul class="divide-y divide-gray-200">
                             @foreach ($results as $row)
                                 <li class="px-4 sm:px-6 py-4 flex flex-col sm:flex-row sm:items-center gap-3">
                                     <div class="flex-1">
                                         <div class="flex items-center gap-2">
                                             <span
-                                                class="font-medium text-gray-900 dark:text-white">{{ $row['domain'] }}</span>
+                                                class="font-medium text-gray-900">{{ $row['domain'] }}</span>
                                             @if ($row['available'])
                                                 <span
                                                     class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px]
-                                   bg-emerald-100 text-emerald-700 dark:bg-emerald-500/15 dark:text-emerald-300">
+                                   bg-emerald-100 text-emerald-700">
                                                     <i data-lucide="check" class="h-3.5 w-3.5"></i> Available
                                                 </span>
                                             @else
                                                 <span
                                                     class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px]
-                                   bg-rose-100 text-rose-700 dark:bg-rose-500/15 dark:text-rose-300">
+                                   bg-rose-100 text-rose-700">
                                                     <i data-lucide="x-circle" class="h-3.5 w-3.5"></i> Taken
                                                 </span>
                                             @endif
                                         </div>
-                                        <div class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">Great for:
+                                        <div class="text-xs text-gray-500 mt-0.5">Great for:
                                             brandable sites, SEO & email.</div>
                                     </div>
 
                                     <div class="sm:w-36 sm:text-right">
-                                        <div class="text-sm font-semibold text-gray-900 dark:text-white">US$
+                                        <div class="text-sm font-semibold text-gray-900">US$
                                             {{ number_format($row['price'], 2) }}</div>
-                                        <div class="text-[11px] text-gray-500 dark:text-gray-400">1st year</div>
+                                        <div class="text-[11px] text-gray-500">1st year</div>
                                     </div>
 
                                     <div class="flex items-center gap-2">
@@ -186,8 +186,8 @@
                                         @else
                                             <a href="https://who.is/whois/{{ urlencode($row['domain']) }}"
                                                 target="_blank"
-                                                class="h-10 px-3 rounded-xl text-sm font-semibold bg-gray-100 dark:bg-slate-800
-                              text-gray-700 dark:text-slate-200 hover:bg-gray-200 dark:hover:bg-slate-700">
+                                                class="h-10 px-3 rounded-xl text-sm font-semibold bg-gray-100
+                              text-gray-700 hover:bg-gray-200">
                                                 WHOIS
                                             </a>
                                         @endif

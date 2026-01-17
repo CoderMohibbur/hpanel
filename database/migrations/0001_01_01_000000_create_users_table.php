@@ -13,12 +13,41 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
+
             $table->string('name');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
+
+            // Jetstream fields
+            $table->foreignId('current_team_id')->nullable();
+            $table->string('profile_photo_path', 2048)->nullable();
+
+            // ✅ H Panel SRS fields
+            $table->enum('role', ['super_admin', 'reseller', 'client'])
+                ->default('client')
+                ->index();
+
+            $table->enum('approval_status', ['pending', 'approved', 'rejected', 'suspended'])
+                ->default('approved')
+                ->index();
+
+            $table->foreignId('parent_reseller_id')
+                ->nullable()
+                ->constrained('users')
+                ->nullOnDelete()
+                ->index();
+
+            $table->enum('reseller_profile_status', ['incomplete', 'submitted', 'verified'])
+                ->nullable()
+                ->index();
+                
+            $table->softDeletes();
             $table->timestamps();
+
+            // helpful composite index
+            $table->index(['role', 'approval_status']);
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
