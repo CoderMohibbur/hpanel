@@ -176,22 +176,27 @@
                         </div>
                     </div>
 
-                    {{-- Dark mode toggle --}}
                     <button type="button" id="theme-toggle"
-                        class="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg hover:bg-gray-100
-                               focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700
-                               dark:focus:ring-gray-600">
-                        <span class="sr-only">Toggle dark mode</span>
-                        <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                            <path d="M17.293 13.293A8 8 0 016.707 2.707 8.001 8.001 0 1017.293 13.293z"></path>
+                        class="inline-flex items-center p-2 text-sm rounded-lg hover:bg-gray-100
+         focus:outline-none focus:ring-2 focus:ring-gray-200
+         text-gray-500 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
+                        <span class="sr-only">Toggle theme</span>
+
+                        <!-- Moon (show when LIGHT, click -> dark) -->
+                        <svg id="theme-icon-moon" class="hidden w-5 h-5" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z" />
                         </svg>
-                        <svg id="theme-toggle-light-icon" class="hidden w-5 h-5" fill="currentColor"
-                            viewBox="0 0 20 20">
+
+                        <!-- Sun (show when DARK, click -> light) -->
+                        <svg id="theme-icon-sun" class="hidden w-5 h-5" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="4" />
                             <path
-                                d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zM4 11a1 1 0 100-2H3a1 1 0 100 2h1zm2.343 4.243a1 1 0 011.414 0l.707.707A1 1 0 116.05 17.364l-.707-.707a1 1 0 010-1.414zM11 17a1 1 0 10-2 0v1a1 1 0 102 0v-1zM6.464 4.05a1 1 0 010 1.414l-.707.707A1 1 0 114.343 4.757l.707-.707a1 1 0 011.414 0zm9.193.707a1 1 0 00-1.414-1.414l-.707.707a1 1 0 001.414 1.414l.707-.707z">
-                            </path>
+                                d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
                         </svg>
                     </button>
+
 
                     {{-- User dropdown --}}
                     <button type="button" id="user-menu-button"
@@ -340,35 +345,42 @@
     </main>
 
     <script>
-        // Theme (dark mode)
+        // Theme (dark mode) - stable + icon sync
         (function() {
             const html = document.documentElement;
-            const stored = localStorage.getItem('theme');
-            const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-            const theme = stored || (prefersDark ? 'dark' : 'light');
-
-            if (theme === 'dark') html.classList.add('dark');
-
-            const darkIcon = document.getElementById('theme-toggle-dark-icon');
-            const lightIcon = document.getElementById('theme-toggle-light-icon');
-
-            function syncIcon() {
-                const isDark = html.classList.contains('dark');
-                if (darkIcon && lightIcon) {
-                    darkIcon.classList.toggle('hidden', !isDark);
-                    lightIcon.classList.toggle('hidden', isDark);
-                }
-            }
-            syncIcon();
+            const storageKey = 'hpanel_theme';
 
             const btn = document.getElementById('theme-toggle');
-            if (btn) {
-                btn.addEventListener('click', () => {
-                    html.classList.toggle('dark');
-                    localStorage.setItem('theme', html.classList.contains('dark') ? 'dark' : 'light');
-                    syncIcon();
-                });
+            const moon = document.getElementById('theme-icon-moon');
+            const sun = document.getElementById('theme-icon-sun');
+
+            const prefersDark = () =>
+                window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+            function syncIcons() {
+                if (!moon || !sun) return;
+                const isDark = html.classList.contains('dark');
+                // dark হলে SUN দেখাবো (মানে click করলে light হবে)
+                sun.classList.toggle('hidden', !isDark);
+                // light হলে MOON দেখাবো (মানে click করলে dark হবে)
+                moon.classList.toggle('hidden', isDark);
             }
+
+            function setTheme(mode) {
+                html.classList.toggle('dark', mode === 'dark');
+                localStorage.setItem(storageKey, mode);
+                syncIcons();
+            }
+
+            // init
+            const saved = localStorage.getItem(storageKey);
+            setTheme(saved ? saved : (prefersDark() ? 'dark' : 'light'));
+
+            // toggle
+            btn && btn.addEventListener('click', () => {
+                const next = html.classList.contains('dark') ? 'light' : 'dark';
+                setTheme(next);
+            });
         })();
 
         // Sidebar: mobile slide + desktop mini (icon-only) + hover expand + pinned toggle
