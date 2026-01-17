@@ -12,7 +12,7 @@ class HPanelDemoSeeder extends Seeder
     {
         $password = Hash::make('password');
 
-        User::updateOrCreate(
+        $admin = User::updateOrCreate(
             ['email' => 'admin@hpanel.test'],
             [
                 'name' => 'Super Admin',
@@ -24,8 +24,9 @@ class HPanelDemoSeeder extends Seeder
                 'reseller_profile_status' => null,
             ]
         );
+        $admin->syncRoles([$admin->role]);
 
-        User::updateOrCreate(
+        $resellerApproved = User::updateOrCreate(
             ['email' => 'reseller.approved@hpanel.test'],
             [
                 'name' => 'Approved Reseller',
@@ -37,8 +38,9 @@ class HPanelDemoSeeder extends Seeder
                 'reseller_profile_status' => User::PROFILE_VERIFIED,
             ]
         );
+        $resellerApproved->syncRoles([$resellerApproved->role]);
 
-        User::updateOrCreate(
+        $resellerPending = User::updateOrCreate(
             ['email' => 'reseller.pending@hpanel.test'],
             [
                 'name' => 'Pending Reseller',
@@ -50,8 +52,9 @@ class HPanelDemoSeeder extends Seeder
                 'reseller_profile_status' => User::PROFILE_SUBMITTED,
             ]
         );
+        $resellerPending->syncRoles([$resellerPending->role]);
 
-        User::updateOrCreate(
+        $client = User::updateOrCreate(
             ['email' => 'client@hpanel.test'],
             [
                 'name' => 'Client User',
@@ -63,5 +66,6 @@ class HPanelDemoSeeder extends Seeder
                 'reseller_profile_status' => null,
             ]
         );
+        $client->syncRoles([$client->role]);
     }
 }

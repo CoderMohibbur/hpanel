@@ -26,10 +26,19 @@ class CreateNewUser implements CreatesNewUsers
             'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature() ? ['accepted', 'required'] : '',
         ])->validate();
 
-        return User::create([
+        $user = User::create([
             'name' => $input['name'],
             'email' => $input['email'],
             'password' => Hash::make($input['password']),
+
+            // explicit defaults (safe)
+            'role' => User::ROLE_CLIENT,
+            'approval_status' => User::APPROVAL_APPROVED,
         ]);
+
+        // ✅ sync Spatie role with column role
+        $user->assignRole($user->role);
+
+        return $user;
     }
 }

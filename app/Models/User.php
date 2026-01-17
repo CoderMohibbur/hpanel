@@ -6,6 +6,7 @@ use Laravel\Jetstream\HasTeams;
 use Laravel\Sanctum\HasApiTokens;
 use Laravel\Jetstream\HasProfilePhoto;
 
+use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Fortify\TwoFactorAuthenticatable;
@@ -23,7 +24,8 @@ class User extends Authenticatable
     use Notifiable;
     use TwoFactorAuthenticatable;
     use SoftDeletes;
-
+    use HasRoles; // ✅ Spatie roles/permissions support
+    
     // ✅ H Panel SRS constants
     public const ROLE_SUPER_ADMIN = 'super_admin';
     public const ROLE_RESELLER    = 'reseller';

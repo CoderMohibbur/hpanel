@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\User;
 use Closure;
 use Illuminate\Http\Request;
 
@@ -11,13 +12,15 @@ class RequireClient
     {
         $user = $request->user();
 
-        // must be client
-        if (!$user || $user->role !== 'client') {
+        if (!$user) abort(403);
+
+        // must be client (column + spatie must match)
+        if ($user->role !== User::ROLE_CLIENT || !$user->hasRole(User::ROLE_CLIENT)) {
             abort(403);
         }
 
         // suspended client can't access
-        if (($user->approval_status ?? 'approved') === 'suspended') {
+        if (($user->approval_status ?? User::APPROVAL_APPROVED) === User::APPROVAL_SUSPENDED) {
             abort(403);
         }
 
